@@ -9,7 +9,7 @@ module WeatherStack
     end
 
     def request(method, path, options=[])
-      HTTP.auth("Bearer #{@access_token}")
+      HTTP.auth("HTTP Req")
         .use(logging: {logger: Logger.new(STDOUT)})
         .headers({
           "User-Agent" => "Clipflow"
