@@ -4,6 +4,8 @@ module WeatherStack
       def initialize(params ={})
       end
 
+      # WeatherStack::Services::FetchWeather.new().perform({ params: {path:"current", "query": "London"} })
+
       def perform(options ={})
         access_token_result = Rails.application.credentials.weather_stack
         return access_token_result if access_token_result.empty?
