@@ -1,7 +1,7 @@
 module WeatherStack
   class Base
     def initialize(params ={})
-      @accesstoken = params[:accesstoken]
+      @access_token = params[:access_token]
     end
 
     def base_url
@@ -9,7 +9,7 @@ module WeatherStack
     end
 
     def request(method, path, options=[])
-      HTTP.auth("Bearer #{@accesstoken}")
+      HTTP.auth("Bearer #{@access_token}")
         .use(logging: {logger: Logger.new(STDOUT)})
         .headers({
           "User-Agent" => "Clipflow"

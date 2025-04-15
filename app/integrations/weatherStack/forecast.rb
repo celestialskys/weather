@@ -1,9 +1,9 @@
 module WeatherStack
-  class Forcast < Base
+  class Forecast < Base
   
-    def get_weather(options={})
+    def get_forcast(options={})
           
-      result = request(:get, { params: options[:params] || {}})
+      result = request(:get, options[:params][:path], { params: options[:params] || {}})
     
       parsed_result = IntegrationsBase.parse_json_response(result)
       return parsed_result if parsed_result[:success]

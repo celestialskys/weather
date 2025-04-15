@@ -6,7 +6,7 @@ module WeatherStack
 
       def perform(options ={})
         access_token_result = Rails.application.credentials.weather_stack
-        return access_token_result if access_token_result.none?
+        return access_token_result if access_token_result.empty?
 
         weather_results = get_weather(access_token_result, options)
         if weather_results[:success] == false
@@ -14,6 +14,10 @@ module WeatherStack
         end
 
         return {success: true, data: weather_results}
+      end
+
+      def get_weather(access_token, options = {})
+        WeatherStack::Forecast.new(access_token: access_token).get_forcast(options)
       end
     end
   end
