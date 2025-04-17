@@ -7,7 +7,7 @@ module WeatherStack
         access_key: @access_token
       }.merge( options[:params] || {})
       
-      byebug
+      # byebug
       result = request(:get, params[:path], { params: params })
     
       parsed_result = IntegrationsBase.parse_json_response(result)

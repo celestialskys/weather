@@ -1,4 +1,3 @@
-const GEO_API_URL = 'https://wft-geo-db.p.rapidapi.com/v1/geo';
 const WEATHER_API_URL = 'http://localhost:3000/api/weather';
 const API_URL="http://localhost:3000";
 
