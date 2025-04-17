@@ -10,4 +10,6 @@ Rails.application.routes.draw do
     end
     resources :locations, only:[:create, :index]
   end
+
+  root to: "main#index"
 end
