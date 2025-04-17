@@ -1,5 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+
+const API_URL="http://localhost:3000/api/";
+
+function getAPIData(){
+  return axios.get(API_URL).then((response)=> response.data);
+}
 
 function App() {
   return (
