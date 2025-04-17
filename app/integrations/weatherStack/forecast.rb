@@ -2,13 +2,15 @@ module WeatherStack
   class Forecast < Base
   
     def get_forcast(options={})
-      
+      if options[:use_open].blank?
+        options[:use_open] = true;
+      end
+
       params ={
-        access_key: @access_token
+        # access_key: @access_token //for weatherstack
+        appid: @access_token, #for openweathermap
       }.merge( options[:params] || {})
-      
-      # byebug
-      result = request(:get, params[:path], { params: params })
+      result = request(options[:use_open], :get, options[:path], { params: params })
     
       parsed_result = IntegrationsBase.parse_json_response(result)
       return parsed_result if parsed_result[:success]

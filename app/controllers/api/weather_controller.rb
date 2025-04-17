@@ -1,8 +1,7 @@
 class Api::WeatherController < ApplicationController
-    def current_weather
-       @weather = WeatherStack::Services::FetchWeather.new().perform({ params: {path:"current", "query": params[:query]} })
+    def weather
+              # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", weather: { "lon": "44.34", "lat":"44.34"} })
+       @weather = WeatherStack::Services::FetchWeather.new().perform({ path:params[:path], { params: params[:weather] }})
     end
-
-    def future_weather
-    end
+   
 end

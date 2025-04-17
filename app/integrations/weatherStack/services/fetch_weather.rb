@@ -4,12 +4,12 @@ module WeatherStack
       def initialize(params ={})
       end
 
-      # WeatherStack::Services::FetchWeather.new().perform({ params: {path:"current", "query": "London"} })
-
+      # WeatherStack::Services::FetchWeather.new().perform({ path:"current", params: { "query": "London"} })
+      # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
+     
       def perform(options ={})
-        access_token_result = Rails.application.credentials.weather_stack
+        access_token_result = Rails.application.credentials.open_weather_map
         return access_token_result if access_token_result.empty?
-
         weather_results = get_weather(access_token_result, options)
         if weather_results[:success] == false
                     return {success: false, errors: ["Couldnt fetch weather"]}
