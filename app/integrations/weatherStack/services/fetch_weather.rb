@@ -12,9 +12,8 @@ module WeatherStack
         return access_token_result if access_token_result.empty?
         weather_results = get_weather(access_token_result, options)
         if weather_results[:success] == false
-                    return {success: false, errors: ["Couldnt fetch weather"]}
+          return {success: false, errors: ["Couldnt fetch weather"]}
         end
-
         return {success: true, data: weather_results}
       end
 
