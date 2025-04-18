@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useState, useEffect, useRef  } from 'react';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
+// import {weatherOpenApi} from './utilities/ApiService';
+// import UnitsButton from './components/elements/UnitsButton';
+// import TodaysWeather from './components/elements/TodaysWeather';
+import TestAPI from './components/tests/test';
 
 function Main(props){
+    const [isToggled, setIsToggled] = useState(false);
+    const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
+    const didMount = useRef(false);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('unitToggle');
+        if (saved !== null) setIsToggled(saved === 'true');
+    }, []);
+
+    // useEffect(() => {
+    //     if (!didMount.current) {
+    //         didMount.current = true;
+    //         return;
+    //     }
+      
+    //     const unit = isToggled ? 'imperial' : 'metric';
+    //     localStorage.setItem('unitToggle', isToggled);
+    //     weatherOpenApi(weatherQuery).then((data) => {
+    //         setWeatherData(data);
+    //       })
+    //       .catch((err) => {
+    //         console.error('Failed to fetch weather data:', err);
+    //       });
+        
+    // }, [isToggled]);
+
     
     let appContent = (
         <Box
@@ -40,6 +70,30 @@ function Main(props){
         </Box>
     );
 
+    // if (todayWeather && todayForecast && weekForecast) {
+    //     appContent = (
+    //       <React.Fragment>
+    //         <Grid item xs={12} md={todayWeather ? 6 : 12}>
+    //           <Grid item xs={12}>
+    //             <TodayWeather data={todayWeather} forecastList={todayForecast} />
+    //           </Grid>
+    //         </Grid>
+    //         <Grid item xs={12} md={6}>
+    //           <WeeklyForecast data={weekForecast} />
+    //         </Grid>
+    //       </React.Fragment>
+    //     );
+    //   }
+
+    // if (error) {
+    // appContent = (
+    //     <ErrorBox
+    //     margin="3rem auto"
+    //     flex="inherit"
+    //     errorMessage="Something went wrong"
+    //     />
+    // );
+
     return (
         <Container
             sx={
@@ -71,9 +125,12 @@ function Main(props){
                         marginBottom: '1rem',
                         }}
                     ></Box>
+                    <div id="autocomplete" class="autocomplete-container"></div>
+
                 </Grid>
                 {appContent}
             </Grid>
+            <TestAPI></TestAPI>
         </Container>
     );
 }

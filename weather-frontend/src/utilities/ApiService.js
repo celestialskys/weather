@@ -1,10 +1,16 @@
-const GEO_API_URL = 'https://wft-geo-db.p.rapidapi.com/v1/geo';
 import axios from 'axios';
-const BASE_API_URL = 'http://localhost:3000/api';
 
-export const WeatherOpenApi = async (params) => {
+const GEO_API_URL = 'https://api.geoapify.com/v1/geocode/autocomplete';
+const BASE_API_URL = 'http://localhost:3000/api/weather';
+const GEO_API_Key = process.env.REACT_APP_LOCATION_API_KEY;
+
+// # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
+export const weatherOpenApi = async (params) => {
+    // let params = new URLSearchParams(data).toString();
+      
+  debugger
     try {
-        const response = await axios.post(BASE_API_URL, { params });
+        const response = await axios.get(BASE_API_URL, { params });
         return response.data;
     } catch (error) {
         console.error("Error fetching weather:", error);
@@ -22,17 +28,34 @@ export const fetchLocationData = async (params) => {
   }
 };
 
-export async function fetchCities(input) {
-    try {
-      const response = await fetch(
-        `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
-        GEO_API_OPTIONS
-      );
+
+// export const fetchExternalLocationData = async (text) => {
+//   const data = {
+//     apiKey: GEO_API_Key,
+//     format: 'json',
+//     text: text
+//   }
+//   let params = new URLSearchParams(data).toString();
   
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  }
+//   try {
+//     const response = await axios.post(`${GEO_API_URL}?${params}`);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching api location:", error);
+//     throw error;
+//   }
+// // };
+// import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
+
+// const autocomplete = new GeocoderAutocomplete(
+//                         document.getElementById("autocomplete"), 
+//                         'YOUR_API_KEY', 
+//                         { /* Geocoder options */ });
+
+// autocomplete.on('select', (location) => {
+//     // check selected location here 
+// });
+
+// autocomplete.on('suggestions', (suggestions) => {
+//     // process suggestions here
+// });

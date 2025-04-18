@@ -3,8 +3,6 @@ module WeatherStack
     class FetchWeather
       def initialize(params ={})
       end
-
-      # WeatherStack::Services::FetchWeather.new().perform({ path:"current", params: { "query": "London"} })
       # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
      
       def perform(options ={})

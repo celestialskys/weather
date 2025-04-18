@@ -12,12 +12,12 @@ module WeatherStack
       }.merge( options[:params] || {})
       result = request(options[:use_open], :get, options[:path], { params: params })
     
-      byebug
       parsed_result = IntegrationsBase.parse_json_response(result)
       return parsed_result if parsed_result[:success]
 
       if result.status.success?
-        return {
+        return parsed_result[:success]
+        {
           success: true,
           data: parsed_result[:success]
         }
