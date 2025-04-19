@@ -12,7 +12,7 @@ module WeatherStack
         if weather_results[:success] == false
           return {success: false, errors: ["Couldnt fetch weather"]}
         end
-        return {success: true, data: weather_results}
+        return weather_results[:data]
       end
 
       def get_weather(access_token, options = {})
