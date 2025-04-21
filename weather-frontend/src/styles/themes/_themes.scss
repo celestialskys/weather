@@ -1,4 +1,4 @@
-@use '../variables/colors.scss';
+@use '../variables/colors' as *;
 
 .App-dark {
   --main-bg-color: #{$main-bg-color-dark};
