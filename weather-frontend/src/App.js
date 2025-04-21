@@ -1,17 +1,19 @@
+import React, { Component }  from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './styles/App.scss';
 import axios from "axios";
-import './main';
 import { useEffect, useState } from "react";
-import Main from './main';
-
+import Header from './components/elements/generic-comps/Header';
+import Main from './Main';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+ 
 function App() {
+  const dark = false;
+  
   return (
-    <div className="App">
-      <header className="App-header">
-       <h1>Weather</h1>
-       <Main/>
-      </header>
+    <div className={`App-${dark ? 'dark' : 'light'}`}>
+      <Header/>
+      <Main/>
     </div>
   );
 }

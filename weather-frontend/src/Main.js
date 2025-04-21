@@ -5,6 +5,7 @@ import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
 // import UnitsButton from './components/elements/UnitsButton';
 // import TodaysWeather from './components/elements/TodaysWeather';
 import TestAPI from './components/tests/test';
+import './styles/Main.scss';
 
 function Main(props){
     const [isToggled, setIsToggled] = useState(false);
