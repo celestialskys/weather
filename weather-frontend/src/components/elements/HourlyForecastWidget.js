@@ -50,17 +50,16 @@ function HourlyForecastWidget({data}) {
       : weather_date.time === midnightTime
       ? weather_date.day
       : '';
-
   return (
     <div className='widget'>
       {/* <div className='day'>{weather_date.day}</div> */}
       {/* <div className='time'>{weather_date.time}</div> */}
       <div className='icon-temp'>
         <div className='icon'>
-          <WeatherIcon weatherBase={weather}/>
+          <WeatherIcon weatherBase={weather[0]}/>
         </div>
         <div className='temperature'>
-          {Math.round(main.temp)} 
+          {Math.round(main.temp)}°  
           {/* {units.temperature} */}
         </div>
       </div>

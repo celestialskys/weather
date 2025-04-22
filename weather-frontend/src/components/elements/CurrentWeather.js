@@ -40,8 +40,8 @@ function CurrentWeather() {
       },{
         id: 4,
         icon: 'clouds-fill',
-        name: 'Clouds cover',
-        value: clouds === undefined? -1 : Math.round(clouds),
+        name: 'Cloud cover',
+        value: clouds === undefined? -1 : Math.round(clouds.all),
         unit: "%"
       },{
         id: 5,
@@ -62,9 +62,9 @@ function CurrentWeather() {
         <div className='temperature'>
             <WeatherIcon weatherBase={weather[0]}/>
             <div className='value'>
-                <div className='real'>{main.temp}°C</div>
+                <div className='real'>{main.temp}°</div>
                 <div className='feels_like'> 
-                    feels like {main.feels_like} °C
+                    feels like {main.feels_like} °
                 </div>
             </div>
             <div className='summary'>{weather[0].description}</div>

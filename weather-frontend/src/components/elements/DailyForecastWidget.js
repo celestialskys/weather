@@ -43,11 +43,11 @@ return (
       </div>
       <div className='temperature'>
         <div className='max'>
-          {Math.round(temp.max)} 
+          {Math.round(temp.max)}° 
           {/* {units.temperature} */}
         </div>
         <div className='min'>
-          {Math.round(temp.min)} 
+          {Math.round(temp.min)} °
           {/* {units.temperature} */}
         </div>
       </div>
