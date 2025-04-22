@@ -57,11 +57,10 @@ function CurrentWeather() {
         unit: "mm/h"
       },
     ]
-
   return (
     <div className='CurrentWeather'>
         <div className='temperature'>
-            <WeatherIcon weatherBase = {weather[0]}/>
+            <WeatherIcon weatherBase={weather[0]}/>
             <div className='value'>
                 <div className='real'>{main.temp}°C</div>
                 <div className='feels_like'> 
