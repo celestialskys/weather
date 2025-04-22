@@ -1,5 +1,5 @@
 import React from 'react'
-import WeatherIcon from './generic-comps/WeatherIcon';
+import WeatherIcon from '../generic-comps/WeatherIcon';
 
 function HourlyForecastWidget({data}) {
     
@@ -52,8 +52,8 @@ function HourlyForecastWidget({data}) {
       : '';
   return (
     <div className='widget'>
-      {/* <div className='day'>{weather_date.day}</div> */}
-      {/* <div className='time'>{weather_date.time}</div> */}
+      <div className='day'>{weather_date.day}</div>
+      <div className='time'>{weather_date.time}</div>
       <div className='icon-temp'>
         <div className='icon'>
           <WeatherIcon weatherBase={weather[0]}/>
@@ -65,9 +65,10 @@ function HourlyForecastWidget({data}) {
       </div>
       <div className='precipitation'>
         <div>{Math.round(pop*100)} %</div>
-        {Math.round(precipitation['1h'])} 
+       
         {/* {units.precipitation} */}
         <div className='icon'>
+          {Math.round(precipitation['1h'])} 
         <i className={"bi bi-droplet"}></i>
       </div>
       </div>

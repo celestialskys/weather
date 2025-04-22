@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './styles/components/App.scss';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Header from './components/elements/generic-comps/Header';
+import Header from './components/generic-comps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
  

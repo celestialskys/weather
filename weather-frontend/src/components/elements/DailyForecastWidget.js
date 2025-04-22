@@ -1,5 +1,5 @@
 import React from 'react'
-import WeatherIcon from '../elements/generic-comps/WeatherIcon'
+import WeatherIcon from '../generic-comps/WeatherIcon'
 
 function DailyForecastWidget({data}) {
     
@@ -60,7 +60,7 @@ return (
         <i className={"bi bi-droplet"}></i>
       </div>
     </div>
-</div>
+  </div>
 )
 }
 

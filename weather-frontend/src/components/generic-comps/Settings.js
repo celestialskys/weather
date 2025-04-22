@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import '../../../styles/components/Setting.scss'
+import '../../styles/components/Setting.scss'
 
 export class Settings extends PureComponent {
   render() {

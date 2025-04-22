@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef  } from 'react';
 import { weatherOpenApi } from '../../utilities/ApiService';
 import '../../styles/components/CurrentWeather.scss';
-import WeatherIcon from './generic-comps/WeatherIcon';
+import WeatherIcon from '../generic-comps/WeatherIcon';
 
 function CurrentWeather() {
    let weatherData = weatherOpenApi()
@@ -63,7 +63,7 @@ function CurrentWeather() {
             <WeatherIcon weatherBase={weather[0]}/>
             <div className='value'>
                 <div className='real'>{main.temp}°</div>
-                <div className='feels_like'> 
+                <div className='feels_like'>
                     feels like {main.feels_like} °
                 </div>
             </div>

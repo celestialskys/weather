@@ -1,13 +1,13 @@
 import React from 'react'
-import Place from '../Place';
+import Place from '../elements/Place';
 import Search from './Search';
 import Settings from './Settings';
-import '../../../styles/components/Header.scss';
+import '../../styles/components/Header.scss';
 
 function Header() {
   return (
     <div className='header'>Header
-        <Search/>
+        {/* <Search/> */}
         <Place/>
         <Settings/>
     </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef  } from 'react';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
 import {weatherOpenApi} from './utilities/ApiService';
-// import UnitsButton from './components/elements/UnitsButton';
 // import TodaysWeather from './components/elements/TodaysWeather';
 import TestAPI from './components/tests/test';
 import './styles/components/Main.scss';
@@ -86,10 +85,10 @@ function Main(props){
                 type='hourly'
                 title='hourly forecast'
                 data={weatherOpenApi({path:'forecast/hourly'})}/>
-              {/* <Forecast
+              <Forecast
                 type='daily'
                 title='21 day forecast'
-                data={weatherOpenApi({path:'forecast/daily'})}/> */}
+                data={weatherOpenApi({path:'forecast/daily'})}/>
             </Grid>
           </React.Fragment>
         );
@@ -138,7 +137,6 @@ function Main(props){
                 </Grid>
                 {appContent}
             </Grid>
-            <TestAPI></TestAPI>
         </Container>
     );
 }
