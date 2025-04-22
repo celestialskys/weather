@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef  } from 'react';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
-// import {weatherOpenApi} from './utilities/ApiService';
+import {weatherOpenApi} from './utilities/ApiService';
 // import UnitsButton from './components/elements/UnitsButton';
 // import TodaysWeather from './components/elements/TodaysWeather';
 import TestAPI from './components/tests/test';
-import './styles/Main.scss';
-
+import './styles/components/Main.scss';
+import CurrentWeather from './components/elements/CurrentWeather';
+import Forecast from './components/elements/Forecast';
 function Main(props){
-    const [isToggled, setIsToggled] = useState(false);
-    const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
-    const didMount = useRef(false);
+    // const [isToggled, setIsToggled] = useState(false);
+    // const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
+    // const didMount = useRef(false);
 
-    useEffect(() => {
-        const saved = localStorage.getItem('unitToggle');
-        if (saved !== null) setIsToggled(saved === 'true');
-    }, []);
+    // useEffect(() => {
+    //     const saved = localStorage.getItem('unitToggle');
+    //     if (saved !== null) setIsToggled(saved === 'true');
+    // }, []);
 
     // useEffect(() => {
     //     if (!didMount.current) {
@@ -72,19 +73,26 @@ function Main(props){
     );
 
     // if (todayWeather && todayForecast && weekForecast) {
-    //     appContent = (
-    //       <React.Fragment>
-    //         <Grid item xs={12} md={todayWeather ? 6 : 12}>
-    //           <Grid item xs={12}>
-    //             <TodayWeather data={todayWeather} forecastList={todayForecast} />
-    //           </Grid>
-    //         </Grid>
-    //         <Grid item xs={12} md={6}>
-    //           <WeeklyForecast data={weekForecast} />
-    //         </Grid>
-    //       </React.Fragment>
-    //     );
-    //   }
+        appContent = (
+          <React.Fragment>
+            {/* <Grid item xs={12} md={todayWeather ? 6 : 12}> */}
+            <Grid item xs={12}>
+              <Grid item xs={12}>
+                <CurrentWeather />
+              </Grid>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Forecast 
+                type='hourly'
+                title='hourly forecast'
+                data={weatherOpenApi({path:'forecast/hourly'})}/>
+              {/* <Forecast
+                type='daily'
+                title='21 day forecast'
+                data={weatherOpenApi({path:'forecast/daily'})}/> */}
+            </Grid>
+          </React.Fragment>
+        );
 
     // if (error) {
     // appContent = (
@@ -126,8 +134,7 @@ function Main(props){
                         marginBottom: '1rem',
                         }}
                     ></Box>
-                    <div id="autocomplete" class="autocomplete-container"></div>
-
+                    <div id="autocomplete" className="autocomplete-container"></div>
                 </Grid>
                 {appContent}
             </Grid>
