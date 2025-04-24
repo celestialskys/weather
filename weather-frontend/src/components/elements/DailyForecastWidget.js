@@ -39,7 +39,7 @@ return (
     <div className='day'>{weather_date.day}</div>
     <div className='icon-temp'>
       <div className='icon'>
-        <WeatherIcon weatherBase={weather} />
+        <WeatherIcon weatherBase={weather[0]} />
       </div>
       <div className='temperature'>
         <div className='max'>

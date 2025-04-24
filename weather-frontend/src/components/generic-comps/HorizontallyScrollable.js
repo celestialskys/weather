@@ -4,6 +4,7 @@ function HorizontallyScrollable({ children, className = '' }) {
   const scrollRef = useRef();
 
   const handleMouseDown = (evt) => {
+    console.log(evt.pageX)
     const oldX = evt.pageX;
     const scrollLeft = scrollRef.current.scrollLeft;
 

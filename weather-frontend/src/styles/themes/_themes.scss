@@ -6,6 +6,8 @@
   --border-color: #{$border-color-dark};
   --primary-text-color: #{$primary-text-color-dark};
   --secondary-text-color: #{$secondary-text-color-dark};
+  --background-color: #{$widget-bg-color-dark};
+  --background-image: #{background-image-dark};
 }
 
 .App-light {
@@ -14,4 +16,6 @@
   --border-color: #{$border-color-light};
   --primary-text-color: #{$primary-text-color-light};
   --secondary-text-color: #{$secondary-text-color-light};
+  --background-color: #{$widget-bg-color-light};
+  --background-image: #{background-image-light};
 }

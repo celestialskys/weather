@@ -12,12 +12,13 @@ $height: 250px;
     padding: 1rem;
     border: 1px solid var(--secondary-text-color);
     border-radius: 1rem;
+    background-color: var(--background-color);
+    background-image: var(--background-image);
   }
 
   .temperature {
     width: 250px;
     height: auto;
-
     .value {
       .real {
         font-size: 3rem;

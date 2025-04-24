@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { useContext }  from 'react';
 import logo from './logo.svg';
 import './styles/components/App.scss';
 import axios from "axios";
@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import Header from './components/generic-comps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
- 
+import ThemeContext from './components/context/theme.context';
+
 function App() {
-  const dark = true;
-  
+  const { dark } = useContext(ThemeContext);
+
   return (
     <div className={`App-${dark ? 'dark' : 'light'}`}>
     <div>

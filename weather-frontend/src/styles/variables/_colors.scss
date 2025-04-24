@@ -5,6 +5,8 @@ $header-bg-color-light: #ffffff;
 $border-color-light: #ced0d4;
 $primary-text-color-light: #050505;
 $secondary-text-color-light: #65676b;
+$widget-bg-color-light: #ffd026;
+$background-image-light: linear-gradient(to right, #FF1493 , yellow);
 
 // DARK THEME COLORS
 $main-bg-color-dark: #18191a;
@@ -12,3 +14,5 @@ $header-bg-color-dark: #242526;
 $border-color-dark: #393a3b;
 $primary-text-color-dark: #e4e6eb;
 $secondary-text-color-dark: #b0b3b8;
+$widget-bg-color-dark: #000e2b;
+$background-image-dark: linear-gradient(to right, #ff52f9 , #813190, #5017ba);
