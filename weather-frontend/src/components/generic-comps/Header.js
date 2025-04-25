@@ -5,10 +5,16 @@ import Settings from './Settings';
 import '../../styles/components/Header.scss';
 
 function Header() {
+  
+  const handleOnSearchChange= (searchData) =>{
+    console.log(searchData)
+  }
+
   return (
     <div className='header'>Header
-        {/* <Search/> */}
         <Place/>
+        <Search />
+        {/* onSearchChange={handleOnSearchChange}/> */}
         <Settings/>
     </div>
   )

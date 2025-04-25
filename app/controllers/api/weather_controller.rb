@@ -4,7 +4,7 @@ class Api::WeatherController < ApplicationController
         @weather = WeatherStack::Services::FetchWeather.new().perform(weather_params)
         render json: @weather
     end
-   
+
     private
 
     def weather_params

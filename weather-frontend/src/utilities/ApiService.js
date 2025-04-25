@@ -3,9 +3,9 @@ import currentWeather from './test/current-weather.json';
 import dailyService from './test/daily-service.json';
 import hourlyService from './test/hourly-serve.json';
 
-const GEO_API_URL = 'https://api.geoapify.com/v1/geocode/autocomplete';
 const BASE_API_URL = 'http://localhost:3000/api/weather';
-const GEO_API_Key = process.env.REACT_APP_LOCATION_API_KEY;
+export const RAPID_GEO_API_KEY=process.env.REACT_APP_RAPID_GEO_API_KEY;
+export const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
 // # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
 export const weatherOpenApi = (params)=> {
@@ -30,17 +30,6 @@ export const weatherOpenApi = (params)=> {
       // Statements executed when no case matches
   }
 }
-// export const weatherOpenApi = async (params) => {
-//     try {
-//       return ( currentWeather)
-//         const response = await axios.get(BASE_API_URL, { params });
-//         return response.data;
-//     } catch (error) {
-//         console.error("Error fetching weather:", error);
-//         throw error;
-//     }
-
-// };
 
 export const fetchLocationData = async (params) => {
   try {
@@ -52,34 +41,25 @@ export const fetchLocationData = async (params) => {
   }
 };
 
+const GEO_API_OPTIONS = {
+  method: "GET",
+  headers: {
+    "x-rapidapi-key": `${RAPID_GEO_API_KEY}`,
+    "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+  },
+};
 
-// export const fetchExternalLocationData = async (text) => {
-//   const data = {
-//     apiKey: GEO_API_Key,
-//     format: 'json',
-//     text: text
-//   }
-//   let params = new URLSearchParams(data).toString();
-  
-//   try {
-//     const response = await axios.post(`${GEO_API_URL}?${params}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching api location:", error);
-//     throw error;
-//   }
-// // };
-// import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
+export async function fetchCities(input) {
+  try {
+    const response = await fetch(
+      `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
+      GEO_API_OPTIONS
+    );
 
-// const autocomplete = new GeocoderAutocomplete(
-//                         document.getElementById("autocomplete"), 
-//                         'YOUR_API_KEY', 
-//                         { /* Geocoder options */ });
-
-// autocomplete.on('select', (location) => {
-//     // check selected location here 
-// });
-
-// autocomplete.on('suggestions', (suggestions) => {
-//     // process suggestions here
-// });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}

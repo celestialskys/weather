@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
+import {DEFAULT_PLACE} from '../constants/index';
+// import { weatherOpenApi } from '../../utilities/ApiService';
 
-import { weatherOpenApi } from '../../utilities/ApiService';
+const WeatherContext = createContext();
 
-// const WeatherContext = createContext();
+function WeatherProvider({ children }) {
+  const [place, setPlace] = useState(DEFAULT_PLACE);
+  const [loading, setLoading] = useState(true);
 
-// function WeatherProvider({ children }) {
-//   const [place, setPlace] = useState(DEFAULT_PLACE);
 //   const [loading, setLoading] = useState(true);
 //   const [currentWeather, setCurrentWeather] = useState({});
 //   const [hourlyForecast, setHourlyForecast] = useState([]);
@@ -47,24 +49,18 @@ import { weatherOpenApi } from '../../utilities/ApiService';
 //     _getWeatherData();
 //   }, [place, measurementSystem]);
 
-//   return (
-//     <WeatherContext.Provider
-//       value={{
-//         place,
-//         setPlace,
-//         loading,
-//         currentWeather,
-//         hourlyForecast,
-//         dailyForecast,
-//         measurementSystem,
-//         setMeasurementSystem,
-//         units,
-//       }}
-//     >
-//       {children}
-//     </WeatherContext.Provider>
-//   );
-// }
+  return (
+    <WeatherContext.Provider
+      value={{
+        place,
+        setPlace,
+        loading
+      }}
+    >
+      {children}
+    </WeatherContext.Provider>
+  );
+}
 
-// export { WeatherProvider };
-// export default WeatherContext;
+export { WeatherProvider };
+export default WeatherContext;
