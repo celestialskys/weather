@@ -7,6 +7,7 @@ import Header from './components/generic-comps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
+import {WeatherProvider} from './components/context/weather.context';
 
 function App() {
   const { dark } = useContext(ThemeContext);
@@ -29,8 +30,10 @@ function App() {
       />
       <link rel="stylesheet" href="css/mdb.min.css" />
     </div>
-    <Header/>
-    <Main/>
+      <WeatherProvider>
+        <Header/>
+        <Main/>
+      </WeatherProvider>
     </div>
   );
 }

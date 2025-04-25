@@ -1,66 +1,74 @@
 import { createContext, useEffect, useState } from 'react';
 import {DEFAULT_PLACE} from '../constants/index';
-// import { weatherOpenApi } from '../../utilities/ApiService';
+import { WeatherOpenApi } from '../../utilities/ApiService';
 
-const WeatherContext = createContext();
+export const WeatherContext = createContext();
 
-function WeatherProvider({ children }) {
+export const WeatherProvider = ({ children }) => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [hourlyForcast, setHourlyForecast] = useState([]);
+  const [weekForecast, setWeekForecast] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [place, setPlace] = useState(DEFAULT_PLACE);
-  const [loading, setLoading] = useState(true);
+  debugger
+  const getWeatherData = async (lat, lon, units) => {
+    setIsLoading(true);
+    setError(false);
+    debugger
+    try {
 
-//   const [loading, setLoading] = useState(true);
-//   const [currentWeather, setCurrentWeather] = useState({});
-//   const [hourlyForecast, setHourlyForecast] = useState([]);
-//   const [dailyForecast, setDailyForecast] = useState([]);
-//   const [measurementSystem, setMeasurementSystem] = useState(
-//     MEASUREMENT_SYSTEMS.AUTO
-//   );
-//   const [units, setUnits] = useState({});
+      const [weatherData, hourlyForcast, weekForecast] = await Promise.all([
+        WeatherOpenApi({
+            path: 'weather',
+            params: { 
+              lat: lat,
+              lon: lon,
+              units: units || 'metric'}
+        }),
 
-//   useEffect(() => {
-//     async function _getWeatherData() {
-//       setLoading(true);
+        WeatherOpenApi({
+          path: 'forecast/hourly',
+          params: { 
+            lat: lat,
+            lon: lon,
+            units: units || 'metric'}
+        }),
 
-//       const cw = await getWeatherData(
-//         'current',
-//         place.place_id,
-//         measurementSystem
-//       );
-//       setCurrentWeather(cw.current);
-//       setUnits(UNITS[cw.units]);
+        WeatherOpenApi({
+          path: 'forecast/daily',
+          params: { 
+            lat: lat,
+            lon: lon,
+            units: units || 'metric'}
+        })
+      ])
 
-//       const hf = await getWeatherData(
-//         'hourly',
-//         place.place_id,
-//         measurementSystem
-//       );
-//       setHourlyForecast(hf.hourly.data);
-
-//       const df = await getWeatherData(
-//         'daily',
-//         place.place_id,
-//         measurementSystem
-//       );
-
-//       setDailyForecast(df.daily.data);
-
-//       setLoading(false);
-//     }
-//     _getWeatherData();
-//   }, [place, measurementSystem]);
+      debugger
+      setWeatherData(weatherData)
+      setWeekForecast(weekForecast)
+      setHourlyForecast(hourlyForcast)
+    }catch (err) {
+      console.error('Failed to fetch weather data:', err);
+      setError(true);
+    }
+    setIsLoading(false);
+  }
 
   return (
     <WeatherContext.Provider
       value={{
         place,
         setPlace,
-        loading
+        weatherData,
+        hourlyForcast,
+        weekForecast,
+        isLoading,
+        error,
+        getWeatherData, // 💡 Pass this down
       }}
     >
       {children}
     </WeatherContext.Provider>
   );
 }
-
-export { WeatherProvider };
-export default WeatherContext;

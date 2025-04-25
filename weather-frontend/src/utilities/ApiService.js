@@ -31,11 +31,21 @@ export const weatherOpenApi = (params)=> {
   }
 }
 
+export const WeatherOpenApi = async (params) => {
+  try {
+      const response = await axios.post(BASE_API_URL, { params });
+      return response.data;
+  } catch (error) {
+      console.error("Error fetching weather:", error);
+      throw error;
+  }
+};
+
 export const fetchLocationData = async (params) => {
   try {
     const response = await axios.post(`${BASE_API_URL}/location`, { params });
     return response.data;
-  } catch (error) {
+} catch (error) {
     console.error("Error fetching location:", error);
     throw error;
   }

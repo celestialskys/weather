@@ -11,7 +11,7 @@ function Forecast({title, type, data}) {
                 <h3>{title}</h3>
                 <HorizontallyScrollable className='widget-container'>
                     { data.list.map((singleData)=>(
-                        <div key={singleData.date || singleData.day}>
+                        <div key={singleData.dt_txt}>
                             {type == 'hourly' ? (
                                 <HourlyForecastWidget data={singleData}/>
                             ) : (

@@ -1,9 +1,9 @@
 export const DEFAULT_PLACE = {
-    name: 'London',
+    label: 'London',
     lat:51.5073219,
     lon:-0.1276474,
     country:"GB",
-    state:"England"
+    region:"England"
   };
 
 export const MEASUREMENT_SYSTEMS = {

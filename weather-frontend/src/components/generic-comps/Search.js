@@ -1,31 +1,46 @@
-import React, { useEffect, useState } from "react";
-// import { WeatherContext } from '../context/weather.context';
+import React, { useContext, useState } from "react";
+import {WeatherContext} from '../context/weather.context';
 import { fetchCities } from "../../utilities/ApiService";
 import '../../styles/components/Search.scss';
+// import AsyncSelect from 'react-select/async';
+import { AsyncPaginate } from 'react-select-async-paginate';
+
 
 function Search(){
-    // const { setPlace } = useContext(WeatherContext);
-    const [searchText, setText] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    // const [openSearchResults, setOpenSearchResults] = useState(false);
+    const { getWeatherData } = useContext(WeatherContext);
+    const { setPlace } = useContext(WeatherContext);
+    const {place} = useState([]);
+    
+    const loadOptions = async (inputValue) => {
+      let citiesList = [place]
+      if (inputValue){
+        citiesList = await fetchCities(inputValue);
+      }
 
-    useEffect(()=>{
-        const delayDebounceFn = setTimeout(() => {
-            let data = fetchCities(searchText);
-            setSearchResults = data;
-        }, 3000)
-        return () => clearTimeout(delayDebounceFn)
-    }, [searchText])
-
-    async function onSearch(e) {
-        setText(e.target.value);        // setSearchResults(data);
-        // setOpenSearchResults(data.length);
-    }
-
-    const changePlace = (place) => {
-        // setPlace(place);
-        setText('');
-        // setOpenSearchResults(false);
+      return {
+        options: citiesList.data.map((city) => {
+          return {
+            label: city.name,
+            lat: city.latitude,
+            lon: city.longitude,
+            country: city.country,
+            region: city.region
+          };
+        }),
+      };
+    };
+    
+    const onChangeHandler = (enteredData) => {
+      debugger
+      getWeatherData(enteredData.lat, enteredData.lon);
+      setPlace({
+        label: enteredData.label,
+        lat: enteredData.lat,
+        lon: enteredData.lon,
+        country: enteredData.country,
+        state:enteredData.state
+        }
+      )
     };
 
     return (
@@ -35,29 +50,16 @@ function Search(){
               <i className='bi bi-search'></i>
             </div>
             <div className='search-input'>
-              <input
-                type='text'
-                name='search-city'
-                placeholder='Search city ...'
-                value={searchText}
-                onChange={onSearch}
+              <AsyncPaginate
+                placeholder="Search for city"
+                debounceTimeout={600}
+                value={place}
+                cacheOptions
+                loadOptions={loadOptions}
+                defaultOptions
+                // onChange={onChangeHandler}
               />
             </div>
-            {/* {openSearchResults && ( */}
-              <div className='search-results'>
-                <div className='results-container'>
-                  {searchResults.map((place) => (
-                    <div
-                      className='result'
-                      key={place.id}
-                    //   onClick={() => changePlace(place)}
-                    >
-                      {place.name}, {place.region}, {place.country}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            {/* )} */}
           </div>
         </>
     );
