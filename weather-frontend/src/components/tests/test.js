@@ -1,10 +1,10 @@
 import React from 'react';
-import { weatherOpenApi } from '../../utilities/ApiService';
+import { WeatherOpenApi } from '../../utilities/ApiService';
 
 const TestAPI = () => {
   const handleTest = async () => {
     try {
-      const data = await weatherOpenApi({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} });
+      const data = await WeatherOpenApi({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} });
       console.log("API response:", data);
     } catch (err) {
       console.error("API test failed:", err);

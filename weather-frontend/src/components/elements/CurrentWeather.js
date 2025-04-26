@@ -1,12 +1,9 @@
 // import React from 'react'
-import React, { useState, useEffect, useRef  } from 'react';
-import { weatherOpenApi } from '../../utilities/ApiService';
+import React from 'react';
 import '../../styles/components/CurrentWeather.scss';
 import WeatherIcon from '../generic-comps/WeatherIcon';
 
-function CurrentWeather() {
-   let weatherData = weatherOpenApi()
-
+function CurrentWeather({weatherData}) {
    const {
     weather,
     clouds,

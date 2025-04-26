@@ -8,7 +8,7 @@ export const RAPID_GEO_API_KEY=process.env.REACT_APP_RAPID_GEO_API_KEY;
 export const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
 // # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
-export const weatherOpenApi = (params)=> {
+export const testingWeatherOpenApi = (params)=> {
   let my_path = params?.path
   if (!my_path) {my_path = 'weather' }
   switch (my_path || {}) {
@@ -32,6 +32,7 @@ export const weatherOpenApi = (params)=> {
 }
 
 export const WeatherOpenApi = async (params) => {
+  debugger
   try {
       const response = await axios.post(BASE_API_URL, { params });
       return response.data;

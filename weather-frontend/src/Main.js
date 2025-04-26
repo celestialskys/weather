@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef  } from 'react';
+import React, { useContext  } from 'react';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
-import {weatherOpenApi} from './utilities/ApiService';
-// import TodaysWeather from './components/elements/TodaysWeather';
 import TestAPI from './components/tests/test';
 import './styles/components/Main.scss';
 import CurrentWeather from './components/elements/CurrentWeather';
 import Forecast from './components/elements/Forecast';
-function Main(props){
+import { WeatherContext } from './components/context/weather.context';
+import ErrorBox from './components/generic-comps/ErrorBox';
+
+function Main(){
+    const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext);
+    debugger
     // const [isToggled, setIsToggled] = useState(false);
     // const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
     // const didMount = useRef(false);
@@ -34,7 +37,6 @@ function Main(props){
         
     // }, [isToggled]);
 
-    
     let appContent = (
         <Box
             xs={12}
@@ -50,20 +52,10 @@ function Main(props){
             <SvgIcon
                 component={SplashIcon}
                 inheritViewBox
-                sx={{ fontSize: { xs: '100px', sm: '120px', md: '140px' } }}
             />
             <Typography
                 variant="h4"
                 component="h4"
-                sx={{
-                    fontSize: { xs: '12px', sm: '14px' },
-                    color: 'rgba(255,255,255, .85)',
-                    fontFamily: 'Poppins',
-                    textAlign: 'center',
-                    margin: '2rem 0',
-                    maxWidth: '80%',
-                    lineHeight: '22px',
-                }}
             >
                Explore the Weather
 
@@ -75,53 +67,36 @@ function Main(props){
         appContent = (
           <React.Fragment>
             {/* <Grid item xs={12} md={todayWeather ? 6 : 12}> */}
-            <Grid item xs={12}>
-              <Grid item xs={12}>
-                <CurrentWeather />
+            <Grid>
+              <Grid>
+                <CurrentWeather weatherData = {weatherData} />
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid>
               <Forecast 
                 type='hourly'
                 title='hourly forecast'
-                data={weatherOpenApi({path:'forecast/hourly'})}/>
+                data={hourlyForcast}/>
               <Forecast
                 type='daily'
                 title='21 day forecast'
-                data={weatherOpenApi({path:'forecast/daily'})}/>
+                data={weekForecast}/>
             </Grid>
           </React.Fragment>
         );
 
-    // if (error) {
-    // appContent = (
-    //     <ErrorBox
-    //     margin="3rem auto"
-    //     flex="inherit"
-    //     errorMessage="Something went wrong"
-    //     />
-    // );
+    if (error) {
+        appContent = (
+            <ErrorBox
+            margin="3rem auto"
+            flex="inherit"
+            errorMessage="Something went wrong"
+            />
+        );
+    }
 
     return (
-        <Container
-            sx={
-                {
-                    maxWidth: { xs: '95%', sm: '80%', md: '1100px' },
-                    width: '100%',
-                    height: '100%',
-                    margin: '0 auto',
-                    padding: '1rem 0 3rem',
-                    marginBottom: '1rem',
-                    borderRadius: {
-                    xs: 'none',
-                    sm: '0 0 1rem 1rem',
-                },
-                boxShadow: {
-                    xs: 'none',
-                    sm: 'rgba(0,0,0, 0.5) 0px 10px 15px -3px, rgba(0,0,0, 0.5) 0px 4px 6px -2px',
-                },
-            }}
-        >
+        <Container>
             <Grid container columnSpacing={2}>
                 <Grid item xs={12}>
                     <Box

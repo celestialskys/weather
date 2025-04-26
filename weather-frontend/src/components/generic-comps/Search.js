@@ -10,7 +10,7 @@ function Search(){
     const { getWeatherData } = useContext(WeatherContext);
     const { setPlace } = useContext(WeatherContext);
     const {place} = useState([]);
-    
+
     const loadOptions = async (inputValue) => {
       let citiesList = [place]
       if (inputValue){
@@ -57,7 +57,7 @@ function Search(){
                 cacheOptions
                 loadOptions={loadOptions}
                 defaultOptions
-                // onChange={onChangeHandler}
+                onChange={onChangeHandler}
               />
             </div>
           </div>
