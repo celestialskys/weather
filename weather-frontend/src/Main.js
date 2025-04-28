@@ -63,7 +63,6 @@ function Main(){
             </Typography>
         </Box>
     );
-    debugger
     
     if (!!weatherData && Object.keys(weatherData).length != 0 && !!hourlyForcast && Object.keys(hourlyForcast).length != 0 && Object.keys(hourlyForcast).length != 0 && !!weekForecast && Object.keys(weekForecast).length != 0) {
         appContent = (

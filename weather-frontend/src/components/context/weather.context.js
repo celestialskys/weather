@@ -45,7 +45,6 @@ function WeatherProvider({ children }){
           })
         ])
 
-        debugger
         if (weatherRes.status === 'fulfilled') setWeatherData(weatherRes.value);
         if (hourlyRes.status === 'fulfilled') setHourlyForecast(hourlyRes.value);
         if (weekRes.status === 'fulfilled') setWeekForecast(weekRes.value);

@@ -13,8 +13,6 @@ function CurrentWeather({weatherData}) {
     visibility,
     wind,
   } = weatherData;
-//   { path:"weather", params: { "lon": "44.34", "lat":"44.34"}
- debugger
   const otherInfoWidgets = [
     {
         id: 0,

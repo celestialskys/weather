@@ -30,7 +30,6 @@ function Search(){
     };
     
     const onChangeHandler = (enteredData) => {
-      debugger
       setPlace({
         label: enteredData.label,
         lat: enteredData.lat,
