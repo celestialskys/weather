@@ -34,7 +34,7 @@ export const testingWeatherOpenApi = (params)=> {
 export const WeatherOpenApi = async (params) => {
   debugger
   try {
-      const response = await axios.post(BASE_API_URL, { params });
+      const response = await axios.get(BASE_API_URL, { params });
       return response.data;
   } catch (error) {
       console.error("Error fetching weather:", error);
