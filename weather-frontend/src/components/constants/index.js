@@ -8,7 +8,7 @@ export const DEFAULT_PLACE = {
 
 export const MEASUREMENT_SYSTEMS = {
     standard: 'standard',
-    METRIC: 'metric',
+    metric: 'metric',
     imperial: 'imperial',
 };
 

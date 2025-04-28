@@ -7,7 +7,6 @@ import { AsyncPaginate } from 'react-select-async-paginate';
 
 
 function Search(){
-    const { getWeatherData } = useContext(WeatherContext);
     const { setPlace } = useContext(WeatherContext);
     const {place} = useState([]);
 
@@ -32,7 +31,6 @@ function Search(){
     
     const onChangeHandler = (enteredData) => {
       debugger
-      getWeatherData(enteredData.lat, enteredData.lon);
       setPlace({
         label: enteredData.label,
         lat: enteredData.lat,
@@ -43,6 +41,20 @@ function Search(){
       )
     };
 
+    const customStyles = {
+      control: (provided, state) => ({
+          ...provided,
+          borderRadius: '5px',
+          border: '2px solid #ccc',
+          boxShadow: state.isFocused ? '0 0 0 2px #1c0c69' : null,
+          color: state.isFocused ? "black": "grey"
+      }),
+      option: (provided, state) => ({
+          ...provided,
+          backgroundColor: state.isFocused ? '#3699FF' : null,
+          color: state.isFocused ? "black": "#1c0c69"
+      }),
+  }
     return (
         <>
           <div className='search-container'>
@@ -58,6 +70,7 @@ function Search(){
                 loadOptions={loadOptions}
                 defaultOptions
                 onChange={onChangeHandler}
+                styles = {customStyles}
               />
             </div>
           </div>

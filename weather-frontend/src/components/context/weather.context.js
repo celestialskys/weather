@@ -6,12 +6,13 @@ const WeatherContext = createContext();
 
 function WeatherProvider({ children }){
   const [weatherData, setWeatherData] = useState({});
-  const [hourlyForcast, setHourlyForecast] = useState([]);
+  const [hourlyForcast, setHourlyForecast] = useState({});
   const [weekForecast, setWeekForecast] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [place, setPlace] = useState(DEFAULT_PLACE);
-  
+  // const [units, setUnits] = useState({});
+
   useEffect(() => {
     const _getWeatherData = async () => {
       setIsLoading(true);
