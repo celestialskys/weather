@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from 'react';
 import {DEFAULT_PLACE} from '../constants/index';
 import { WeatherOpenApi } from '../../utilities/ApiService';
 
-export const WeatherContext = createContext();
+const WeatherContext = createContext();
 
-export const WeatherProvider = ({ children }) => {
+function WeatherProvider({ children }){
   const [weatherData, setWeatherData] = useState({});
   const [hourlyForcast, setHourlyForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState({});
@@ -18,10 +18,10 @@ export const WeatherProvider = ({ children }) => {
       setError(false);
       const units = 'metric'
       try {
-        const [weatherData, hourlyForcast, weekForecast] = await Promise.all([
+        const [weatherRes, hourlyRes, weekRes] = await Promise.allSettled([
           WeatherOpenApi({
               path: 'weather',
-              params: { 
+              params: {
                 lat: place.lat,
                 lon: place.lon,
                 units: units || 'metric'}
@@ -45,9 +45,13 @@ export const WeatherProvider = ({ children }) => {
         ])
 
         debugger
-        setWeatherData(weatherData)
-        setWeekForecast(weekForecast)
-        setHourlyForecast(hourlyForcast)
+        if (weatherRes.status === 'fulfilled') setWeatherData(weatherRes.value);
+        if (hourlyRes.status === 'fulfilled') setHourlyForecast(hourlyRes.value);
+        if (weekRes.status === 'fulfilled') setWeekForecast(weekRes.value);
+
+        if (weatherRes.status === 'rejected' || hourlyRes.status === 'rejected' || weekRes.status === 'rejected') {
+          setError(true);
+        }
       }catch (err) {
         console.error('Failed to fetch weather data:', err);
         setError(true);
@@ -56,7 +60,7 @@ export const WeatherProvider = ({ children }) => {
     }
     _getWeatherData()
   }, [place])
-  debugger
+
   return (
     <WeatherContext.Provider
       value={{
@@ -73,3 +77,6 @@ export const WeatherProvider = ({ children }) => {
     </WeatherContext.Provider>
   );
 }
+
+export { WeatherProvider };
+export default WeatherContext;

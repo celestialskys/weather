@@ -5,12 +5,13 @@ import TestAPI from './components/tests/test';
 import './styles/components/Main.scss';
 import CurrentWeather from './components/elements/CurrentWeather';
 import Forecast from './components/elements/Forecast';
-import { WeatherContext } from './components/context/weather.context';
+import WeatherContext from './components/context/weather.context';
 import ErrorBox from './components/generic-comps/ErrorBox';
 
 function Main(){
-    const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext);
-    debugger
+    const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext)
+    //  useContext(WeatherContext);
+
     // const [isToggled, setIsToggled] = useState(false);
     // const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
     // const didMount = useRef(false);
@@ -62,8 +63,9 @@ function Main(){
             </Typography>
         </Box>
     );
-
-    // if (todayWeather && todayForecast && weekForecast) {
+    debugger
+    
+    if (!!weatherData && Object.keys(weatherData).length != 0 && !!hourlyForcast && Object.keys(hourlyForcast).length != 0 && Object.keys(hourlyForcast).length != 0 && !!weekForecast && Object.keys(weekForecast).length != 0) {
         appContent = (
           <React.Fragment>
             {/* <Grid item xs={12} md={todayWeather ? 6 : 12}> */}
@@ -84,6 +86,8 @@ function Main(){
             </Grid>
           </React.Fragment>
         );
+    }
+    // appContent=                 <TestAPI></TestAPI>
 
     if (error) {
         appContent = (

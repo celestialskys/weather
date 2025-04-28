@@ -7,7 +7,7 @@ import Header from './components/generic-comps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
-import {WeatherProvider} from './components/context/weather.context';
+import { WeatherProvider } from './components/context/weather.context';
 
 function App() {
   const { dark } = useContext(ThemeContext);

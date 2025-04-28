@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {WeatherContext} from '../context/weather.context';
+import WeatherContext from '../context/weather.context';
 import { fetchCities } from "../../utilities/ApiService";
 import '../../styles/components/Search.scss';
 // import AsyncSelect from 'react-select/async';

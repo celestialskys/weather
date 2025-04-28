@@ -14,13 +14,13 @@ function CurrentWeather({weatherData}) {
     wind,
   } = weatherData;
 //   { path:"weather", params: { "lon": "44.34", "lat":"44.34"}
- 
+ debugger
   const otherInfoWidgets = [
     {
         id: 0,
         icon: 'droplet',
         name: 'Precipitation',
-        value: rain['1h'] === undefined ? -1 : Math.round(rain['1h']),
+        value: rain === undefined ? -1 : Math.round(rain['1h']),
         unit: 'mm/h',
     },{
         id: 1,

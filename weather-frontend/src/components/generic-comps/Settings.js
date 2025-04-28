@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import ThemeContextContext from '../context/theme.context';
 import '../../styles/components/Settings.scss'
-// import {WeatherContext} from '../context/weather.context'
+// import WeatherContext from '../context/weather.context'
 
 function Settings() {
   const { dark, setDark, saveThemeToLocalStorage } = useContext(
