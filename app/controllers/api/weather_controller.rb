@@ -8,6 +8,6 @@ class Api::WeatherController < ApplicationController
     private
 
     def weather_params
-        params.permit(:path, params: [:lon, :lat])
+        params.permit(:path, params: [:lon, :lat, :units])
     end
 end
