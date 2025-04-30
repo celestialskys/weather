@@ -1,5 +1,5 @@
 import React from 'react'
-import Place from '../elements/Place';
+import Place from '../weatherElements/Place';
 import Search from './Search';
 import Settings from './Settings';
 
@@ -14,6 +14,7 @@ function Header() {
         <Search />
         {/* onSearchChange={handleOnSearchChange}/> */}
         <Settings/>
+        {/* <Profile/> */}
     </div>
   )
 }

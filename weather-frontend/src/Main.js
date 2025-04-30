@@ -3,8 +3,8 @@ import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
 import TestAPI from './components/tests/test';
 import './styles/components/Main.scss';
-import CurrentWeather from './components/elements/CurrentWeather';
-import Forecast from './components/elements/Forecast';
+import CurrentWeather from './components/weatherElements/CurrentWeather';
+import Forecast from './components/weatherElements/Forecast';
 import WeatherContext from './components/context/weather.context';
 import ErrorBox from './components/generic-comps/ErrorBox';
 

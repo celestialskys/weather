@@ -1,7 +1,7 @@
 class Api::LocationsController < ApplicationController
   before_action :set_location, only: %i[ show update destroy ]
 
-  # GET /locations
+  # GET /user_id/locations
   def index
     @locations = Location.all
 

@@ -1,13 +1,16 @@
 import React, { useContext }  from 'react';
 import logo from './logo.svg';
 import './styles/components/App.scss';
-import axios from "axios";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Header from './components/generic-comps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
 import { WeatherProvider } from './components/context/weather.context';
+import PrivateRoute from './components/generic-comps/routes/PrivateRoute';
+import PersistLogin from './components/generic-comps/sessions/PersistLogin';
+import Dashboard from './components/generic-comps/Dashboard';
 
 function App() {
   const { dark } = useContext(ThemeContext);
@@ -30,10 +33,22 @@ function App() {
       />
       <link rel="stylesheet" href="css/mdb.min.css" />
     </div>
+    <Router>
       <WeatherProvider>
         <Header/>
+        <Routes>
+          <Route element = {<PersistLogin/>}>
+            <Route path="/" element = {
+              <PrivateRoute>
+                <Dashboard/>
+              </PrivateRoute>
+            }/>
+
+          </Route>
+        </Routes>
         <Main/>
       </WeatherProvider>
+    </Router>
     </div>
   );
 }
