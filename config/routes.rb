@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     namespace :api do
       resources :weather, only: [:index ]
       # resource :session
-      get 'login', to: 'sessions#new', as: :login
-      get 'logout', to: 'sessions#destroy', as: :logout
+      post 'login', to: 'sessions#create', as: :login
+      post 'logout', to: 'sessions#destroy', as: :logout
       resources :passwords, param: :token
       resources :users, only: [:create, :index, :show] do 
         resources :locations, only: [:show, :create, :index ]
