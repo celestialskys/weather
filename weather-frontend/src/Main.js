@@ -6,7 +6,7 @@ import './styles/components/Main.scss';
 import CurrentWeather from './components/weatherElements/CurrentWeather';
 import Forecast from './components/weatherElements/Forecast';
 import WeatherContext from './components/context/weather.context';
-import ErrorBox from './components/generic-comps/ErrorBox';
+import ErrorBox from './components/genericComps/ErrorBox';
 
 function Main(){
     const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext)

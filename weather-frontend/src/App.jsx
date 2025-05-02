@@ -3,15 +3,15 @@ import logo from './logo.svg';
 import './styles/components/App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import Header from './components/generic-comps/Header';
+import Header from './components/genericComps/Header';
 import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
 import { WeatherProvider } from './components/context/weather.context';
-// import PrivateRoute from './components/generic-comps/routes/PrivateRoute';
-import PersistLogin from './components/generic-comps/sessions/PersistLogin';
-import Dashboard from './components/generic-comps/Dashboard';
-import LoginSignup from './components/generic-comps/sessions/LoginSignup';
+import PrivateRoute from './components/genericComps/routes/PrivateRoute';
+import PersistLogin from './components/genericComps/sessions/PersistLogin';
+import Dashboard from './components/genericComps/Dashboard';
+import LoginSignup from './components/genericComps/sessions/LoginSignup';
 
 function App() {
   const { dark } = useContext(ThemeContext);
@@ -37,21 +37,27 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element = {<LoginSignup/>}></Route>
-            {/* <Route element = {<PersistLogin/>}>
-              <Route path="/" element = {
-                <PrivateRoute>
-                  <Dashboard/>
-                </PrivateRoute>
-              }/>
+          <Route element = {<PersistLogin/>}>
+            <Route path="/" element = {
+              <>
+              <WeatherProvider>
+              <Header/>
+              <PrivateRoute>
+                <Dashboard/>
+              </PrivateRoute>
+              <Main/>
+              </WeatherProvider>
+            </>
+            }/>
 
-            </Route> */}
+          </Route>
         
-          <Route path="/"element = {
+          {/* <Route path="/"element = {
             <WeatherProvider>
               <Header/>
               <Main/>
             </WeatherProvider>
-          }/>
+          }/> */}
       </Routes>
     </Router>
     </div>

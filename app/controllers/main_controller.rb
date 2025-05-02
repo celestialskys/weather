@@ -5,6 +5,6 @@ class MainController < ApplicationController
     end
 
     def dashboard
-        redirect_to new_session_path unless authenticated?
+        redirect_to api_login_path unless authenticated?
     end
 end

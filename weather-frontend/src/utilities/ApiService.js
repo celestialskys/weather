@@ -3,7 +3,8 @@ import currentWeather from './test/current-weather.json';
 import dailyService from './test/daily-service.json';
 import hourlyService from './test/hourly-serve.json';
 
-const BASE_API_URL = 'http://localhost:3000/api/weather';
+const BASE_WEATHER_API_URL = 'http://localhost:3000/api/weather';
+const BASE_API_URL = 'http://localhost:3000/api';
 export const RAPID_GEO_API_KEY=process.env.REACT_APP_RAPID_GEO_API_KEY;
 export const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
@@ -33,7 +34,7 @@ export const testingWeatherOpenApi = (params)=> {
 
 export const WeatherOpenApi = async (params) => {
   try {
-      const response = await axios.get(BASE_API_URL, { params });
+      const response = await axios.get(BASE_WEATHER_API_URL, { params });
       return response.data;
   } catch (error) {
       console.error("Error fetching weather:", error);
@@ -41,9 +42,29 @@ export const WeatherOpenApi = async (params) => {
   }
 };
 
+export async function createUser(params){
+  try  {
+    const response = await axios.post(`${BASE_API_URL}/users`, { params });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getUser(params){
+  try  {
+    const response = await axios.get(`${BASE_API_URL}/users`, { params });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export const fetchLocationData = async (params) => {
   try {
-    const response = await axios.post(`${BASE_API_URL}/location`, { params });
+    const response = await axios.post(`${BASE_WEATHER_API_URL}/location`, { params });
     return response.data;
 } catch (error) {
     console.error("Error fetching location:", error);

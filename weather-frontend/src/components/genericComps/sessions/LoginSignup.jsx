@@ -7,14 +7,22 @@ const LoginSignup = () => {
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
-
+  const [errors, setErrors] = useState([]);
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formType === 'login') {
+    setErrors([]);
+    if (!firstname || !lastname || !password || !email){
+      return setErrors(["Please fill out all fields"])
+    }  else{
+      if (formType === 'login') {
       console.log('Logging in with:', email, password);
-    } else {
-      console.log('Signing up with:', firstname, lastname, email, password);
+      } else {
+        console.log('Signing up with:', firstname, lastname, email, password);
+      }
     }
+
+    
   };
 
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 import '../../styles/components/Forecast.scss'
 import HourlyForecastWidget from './HourlyForecastWidget'
 import DailyForecastWidget from './DailyForecastWidget'
-import HorizontallyScrollable from '../generic-comps/HorizontallyScrollable'
+import HorizontallyScrollable from '../genericComps/HorizontallyScrollable'
 function Forecast({title, type, data}) {
     // { path:"weather", params: { "lon": "44.34", "lat":"44.34"}
     return (

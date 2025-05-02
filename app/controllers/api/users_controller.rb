@@ -1,5 +1,6 @@
 class Api::UsersController < ApplicationController
-  # before_action :set_user, only: %i[ show update destroy ]
+  allow_unauthenticated_access only: %i[ create ]
+  before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users
   def index
@@ -15,10 +16,13 @@ class Api::UsersController < ApplicationController
 
   # POST /users
   def create
+    byebug
     @user = User.new(user_params)
-
+    
     if @user.save
-      render json: @user, status: :created, location: @user
+      byebug
+      start_new_session_for @user
+      render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -46,6 +50,6 @@ class Api::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :email, :firstname, :lastname, :session_token, :password_digest ])
+      params.require(:user).permit(:email_address, :firstname, :lastname, :session_token, :password_digest, :password)
     end
 end

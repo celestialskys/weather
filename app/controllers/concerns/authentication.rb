@@ -2,15 +2,12 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    puts "✅ Authentication included in #{self}"
     before_action :require_authentication
     helper_method :authenticated?
   end
 
   class_methods do
     def allow_unauthenticated_access(**options)
-      puts "✅ allow_unauthenticated_access defined"
-
       skip_before_action :require_authentication, **options
     end
   end
@@ -34,7 +31,7 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to new_session_path
+      redirect_to api_login_path
     end
 
     def after_authentication_url

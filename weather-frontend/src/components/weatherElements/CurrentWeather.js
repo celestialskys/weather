@@ -1,7 +1,7 @@
 // import React from 'react'
 import React from 'react';
 import '../../styles/components/CurrentWeather.scss';
-import WeatherIcon from '../generic-comps/WeatherIcon';
+import WeatherIcon from '../genericComps/WeatherIcon';
 
 function CurrentWeather({weatherData}) {
    const {

@@ -1,5 +1,5 @@
 import React from 'react'
-import WeatherIcon from '../generic-comps/WeatherIcon'
+import WeatherIcon from '../genericComps/WeatherIcon'
 
 function DailyForecastWidget({data}) {
     
