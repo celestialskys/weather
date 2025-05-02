@@ -5,7 +5,13 @@ const SessionContext = createContext({
   accessToken: {},
   savedLocations: {},
   isUserLoading: false,
-  userError: false});
+  userError: false,
+  setUserData: () => {},
+  setAccessToken: () => {},
+  setSavedLocations: () => {},
+  setIsUserLoading: () => {},
+  setUserError: () => {},
+});
 
 function SessionProvider({ children }){
     const [userData, setUserData] = useState({});
@@ -21,7 +27,12 @@ function SessionProvider({ children }){
             accessToken,
             savedLocations,
             isUserLoading,
-            userError
+            userError,
+            setUserData,
+            setAccessToken,
+            setSavedLocations,
+            setIsUserLoading,
+            setUserError
           }}
         >
           {children}
