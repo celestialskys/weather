@@ -20,7 +20,7 @@ class Api::UsersController < ApplicationController
     
     if @user.save
       start_new_session_for @user
-      render json: { user: @user, session_token: @user.sessions[0].id, status: 'fulfilled' }
+      render json: { user: @user, session_token: Current.session.id, status: 'fulfilled' }
     else
       render json: @user.errors, status: :unprocessable_entity
     end

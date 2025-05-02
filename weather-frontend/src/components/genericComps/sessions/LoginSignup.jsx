@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import '../../../styles/components/LoginSignup.scss';
 import { loginUser, createUser } from '../../../utilities/ApiService';
 import SessionContext from '../../context/session.context';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 
 const LoginSignup = () => {
   const {
@@ -10,6 +11,7 @@ const LoginSignup = () => {
     setIsUserLoading,
     setUserError,
   } = useContext(SessionContext);
+  const navigate = useNavigate();
 
   const [formType, setFormType] = useState('login');
   const [firstname, setFirstname] = useState('');
@@ -38,6 +40,7 @@ const LoginSignup = () => {
         if (res.status === 'fulfilled') {
           setUserData(res.user);
           setAccessToken(res.session_token);
+          navigate('/');
         } else {
           setUserError(true);
         }
@@ -50,8 +53,9 @@ const LoginSignup = () => {
         });
 
         if (res.status === 'fulfilled') {
-          setUserData(res.value.user);
-          setAccessToken(res.value.session_token);
+          setUserData(res.user);
+          setAccessToken(res.session_token);
+          navigate('/')
         } else {
           setUserError(true);
         }

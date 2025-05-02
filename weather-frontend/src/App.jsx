@@ -45,6 +45,7 @@ function App() {
               <Main />
             </>
           } />
+          
           {/* Protected Dashboard route */}
           <Route element={<PersistLogin />}>
           <Route path="/dashboard" element={

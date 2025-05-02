@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom';
+import { SessionProvider } from '../../context/session.context';
+import {checkLogin} from '../../../utilities/ApiService';
 
 function PersistLogin() {
-  const loading = false;
-  const accessToken = false;
-  const refreshToken = null;
+  const {loading, accessToken, refreshToken} = useContext(SessionProvider)
 
   useEffect(() => {
     function verifyRefreshToken(){
       try{
-        // dispatch(refreshAccessToken)
+        checkLogin();
       } catch (err){
         console.log('Err refreshing access token')
       }

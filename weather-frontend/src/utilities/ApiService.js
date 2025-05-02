@@ -71,7 +71,15 @@ export async function createUser(params){
     throw error;
   }
 }
-
+export async function checkLogin() {
+  try  {
+    const response = await axios.get(`${BASE_API_URL}/session`,  { withCredentials: true });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 export async function getUser(params){
   try  {
     const response = await axios.get(`${BASE_API_URL}/users`, { params });

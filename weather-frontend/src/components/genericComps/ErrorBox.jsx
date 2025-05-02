@@ -13,7 +13,7 @@ export default function ErrorBox(props) {
       flex={props.flex || 'auto'}
       width={props.width || 'auto'}
     >
-    <i class="bi bi-exclamation-circle"></i>
+    <i className="bi bi-exclamation-circle"></i>
 
       <Typography
         variant="h2"
