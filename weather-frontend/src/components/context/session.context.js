@@ -23,18 +23,18 @@ function SessionProvider({ children }){
     const [isUserLoading, setIsUserLoading] = useState(false);
     const [userError, setUserError] = useState(false);
 
-    useEffect(()=>{
-        const _getUserLocations = async () =>{
-          try {
-            const savedLocations = fetchLocationData(
-              {}
-            )
-          }
-        }
-        if (accessToken){
-          _getUserLocations();
-        }
-    }, [savedLocations])
+    // useEffect(()=>{
+    //     const _getUserLocations = async () =>{
+    //       try {
+    //         const savedLocations = fetchLocationData(
+    //           {}
+    //         )
+    //       }
+    //     }
+    //     if (accessToken){
+    //       _getUserLocations();
+    //     }
+    // }, [savedLocations])
 
 
     return (
