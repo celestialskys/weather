@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
   def create
     if @user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for @user
-      render json: { user: @user, session_token: @user.sessions[0].id }
+      render json: { user: @user, session_token: @user.sessions[0].id, status: 'fulfilled' }
     else
       redirect_to api_login_path, alert: "Try another email address or password."
     end

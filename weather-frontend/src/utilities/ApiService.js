@@ -44,7 +44,7 @@ export const WeatherOpenApi = async (params) => {
 
 export async function loginUser(params){
   try  {
-    const response = await axios.post(`${BASE_API_URL}/login`, { params });
+    const response = await axios.post(`${BASE_API_URL}/login`, params );
     return response.data;
   } catch (error) {
     console.log(error);

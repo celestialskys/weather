@@ -31,15 +31,13 @@ const LoginSignup = () => {
     }
 
     setIsUserLoading(true);
-    debugger
 
     try {
       if (formType === 'login') {
         const res = await loginUser({ email_address: email, password });
-        debugger
         if (res.status === 'fulfilled') {
-          setUserData(res.value.user);
-          setAccessToken(res.value.session_token);
+          setUserData(res.user);
+          setAccessToken(res.session_token);
         } else {
           setUserError(true);
         }

@@ -14,7 +14,7 @@ function Settings() {
   };
 
   return (
-    <div className='settings'>Settings 
+    <div className='settings'> 
       <div className='theme-toggler'>
         <div className='theme-buttons' onClick={toggleTheme}>
           <div className={`light-theme-btn ${dark ? '' : 'active'}`}>
