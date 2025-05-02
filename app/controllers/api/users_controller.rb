@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  include Authentication
+  
   allow_unauthenticated_access only: %i[ create ]
   before_action :set_user, only: %i[ show update destroy ]
 
