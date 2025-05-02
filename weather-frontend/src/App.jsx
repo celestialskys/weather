@@ -8,9 +8,10 @@ import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
 import { WeatherProvider } from './components/context/weather.context';
-import PrivateRoute from './components/generic-comps/routes/PrivateRoute';
+// import PrivateRoute from './components/generic-comps/routes/PrivateRoute';
 import PersistLogin from './components/generic-comps/sessions/PersistLogin';
 import Dashboard from './components/generic-comps/Dashboard';
+import LoginSignup from './components/generic-comps/sessions/LoginSignup';
 
 function App() {
   const { dark } = useContext(ThemeContext);
@@ -34,20 +35,24 @@ function App() {
       <link rel="stylesheet" href="css/mdb.min.css" />
     </div>
     <Router>
-      <WeatherProvider>
-        <Header/>
-        <Routes>
-          <Route element = {<PersistLogin/>}>
-            <Route path="/" element = {
-              <PrivateRoute>
-                <Dashboard/>
-              </PrivateRoute>
-            }/>
+      <Routes>
+        <Route path="/login" element = {<LoginSignup/>}></Route>
+            {/* <Route element = {<PersistLogin/>}>
+              <Route path="/" element = {
+                <PrivateRoute>
+                  <Dashboard/>
+                </PrivateRoute>
+              }/>
 
-          </Route>
-        </Routes>
-        <Main/>
-      </WeatherProvider>
+            </Route> */}
+        
+          <Route path="/"element = {
+            <WeatherProvider>
+              <Header/>
+              <Main/>
+            </WeatherProvider>
+          }/>
+      </Routes>
     </Router>
     </div>
   );

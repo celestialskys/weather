@@ -7,7 +7,7 @@ function PrivateRoute({children}: any) {
   const navigate = useNavigate();
   const location = useLocation();
   const fromLocation = (location.state as any)?.from
-  const previousLocation = location.state ? fromLocation : { pathname: 'login' }
+  const previousLocation = location.state ? fromLocation : { pathname: '/login' }
   if (accessToken){
     return children;
   } else if(loading){

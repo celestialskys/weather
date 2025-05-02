@@ -6,8 +6,6 @@ import Settings from './Settings';
 import '../../styles/components/Header.scss';
 
 function Header() {
-  
-
   return (
     <div className='header'>Header
         <Place/>
