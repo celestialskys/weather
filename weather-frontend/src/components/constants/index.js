@@ -2,7 +2,8 @@ export const DEFAULT_PLACE = {
     label: 'London',
     lat:51.5073219,
     lon:-0.1276474,
-    country:"GB",
+    country:"Great Brit",
+    country_code: "GB",
     region:"England"
   };
 

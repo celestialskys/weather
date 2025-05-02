@@ -22,7 +22,7 @@ function Search(){
             label: city.name,
             lat: city.latitude,
             lon: city.longitude,
-            country: city.country,
+            country_code: city.country_code,
             region: city.region
           };
         }),
@@ -35,6 +35,7 @@ function Search(){
         lat: enteredData.lat,
         lon: enteredData.lon,
         country: enteredData.country,
+        country_code: enteredData.country_code,
         state:enteredData.state
         }
       )
