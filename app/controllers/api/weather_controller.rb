@@ -1,4 +1,5 @@
 class Api::WeatherController < ApplicationController
+    include Authentication
     allow_unauthenticated_access only: :index
     def index
         # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", weather: { "lon": "44.34", "lat":"44.34"} })

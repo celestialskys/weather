@@ -10,10 +10,11 @@ Rails.application.routes.draw do
       delete 'logout', to: 'sessions#destroy', as: :logout
       get 'session', to: 'sessions#check_session', as: :session 
       resources :passwords, param: :token
-      resources :users, only: [:create, :index, :show] do 
-        resources :locations, only: [:show, :create, :index ]
-        resources :user_locations, only:[:update, :create, :destroy]
-      end
+      resources :users, only: [:create, :index, :show]
+      resources :locations, only: [:show, :create, :index ]
+      get 'find_location', to: 'locations#find_location', as: :find_location
+      resources :user_locations, only:[:update, :create, :destroy]
+
       # resources :locations, only:[:create, :index]
       match '*path', to: 'base#not_found', via: :all
 

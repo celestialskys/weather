@@ -20,7 +20,6 @@ class Api::SessionsController < ApplicationController
     Rails.logger.info "Cookie received: #{cookies.signed[:session_id]}"
 
     if authenticated?
-      byebug
       render json: {
         authenticated: true,
         user: Current.session.user.slice(:id, :email, :firstname, :lastname),

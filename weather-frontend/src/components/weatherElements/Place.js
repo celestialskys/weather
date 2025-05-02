@@ -5,10 +5,8 @@ function Place() {
   const {place} = useContext(WeatherContext)
 
   if (!place?.label) {
-    debugger
     return <div>Loading location...</div>;
   }
-  debugger
   return (
     <div className="place">
         <i className="bi bi-geo-alt-fill"></i> <b> {place.label}</b>

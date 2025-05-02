@@ -1,15 +1,17 @@
 class Api::LocationsController < ApplicationController
-  before_action :set_location, only: %i[ show update destroy ]
+  include Authentication
+  
+  allow_unauthenticated_access
+  # before_action :set_location, only: %i[ show update destroy ]
 
   # GET /user_id/locations
   def index
-    @locations = Location.all
-
+    @locations = Current.user.locations
     render json: @locations
   end
 
-  # GET /locations/1
-  def show
+  def find_location
+    @location = Location.search_attr(location_params)
     render json: @location
   end
 
@@ -46,6 +48,6 @@ class Api::LocationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.expect(location: [ :name, :country, :region, :zip, :lat, :lon, :timezone_id ])
+      params.expect(location: [ :label, :country, :region, :zip, :lat, :lon, :timezone_id ])
     end
 end
