@@ -36,30 +36,27 @@ function App() {
       <link rel="stylesheet" href="css/mdb.min.css" />
     </div>
     <Router>
-      <Routes>
-        <Route path="/login" element = {<LoginSignup/>}></Route>
-          <Route element = {<PersistLogin/>}>
-            <Route path="/" element = {
-              <SessionProvider>
-                <WeatherProvider>
-                <Header/>
-                <PrivateRoute>
-                  <Dashboard/>
-                </PrivateRoute>
-                <Main/>
-                </WeatherProvider>
-              </SessionProvider>
-            }/>
-
+      <WeatherProvider>
+        <Routes>
+          <Route path="/login" element={<LoginSignup />} />
+          <Route path="/" element={
+            <>
+              <Header />
+              <Main />
+            </>
+          } />
+          {/* Protected Dashboard route */}
+          <Route element={<PersistLogin />}>
+          <Route path="/dashboard" element={
+            <SessionProvider>
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            </SessionProvider>
+          } />
           </Route>
-        
-          {/* <Route path="/"element = {
-            <WeatherProvider>
-              <Header/>
-              <Main/>
-            </WeatherProvider>
-          }/> */}
-      </Routes>
+        </Routes>
+      </WeatherProvider>
     </Router>
     </div>
   );
