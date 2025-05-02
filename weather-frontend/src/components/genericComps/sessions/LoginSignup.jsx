@@ -10,6 +10,7 @@ const LoginSignup = () => {
     setAccessToken,
     setIsUserLoading,
     setUserError,
+    setAuthChecked
   } = useContext(SessionContext);
   const navigate = useNavigate();
 
@@ -18,30 +19,32 @@ const LoginSignup = () => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const [userErrors, setUserErrors] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrors([]);
+    setUserErrors([]);
 
     if (!email || !password || (formType === 'signup' && (!firstname || !lastname))) {
-      return setErrors(['Please fill out all fields']);
+      return setUserErrors(['Please fill out all fields']);
     }
 
     if (email.length < 6 || !email.includes('@')) {
-      return setErrors(['Something is wrong with your email']);
+      return setUserErrors(['Something is wrong with your email']);
     }
 
     setIsUserLoading(true);
 
     try {
       if (formType === 'login') {
-        const res = await loginUser({ email_address: email, password });
-        if (res.status === 'fulfilled') {
+        const res = await loginUser({ email_address: email, password })
+        if (res.authenticated) {
           setUserData(res.user);
           setAccessToken(res.session_token);
+          setAuthChecked(true)
           navigate('/');
         } else {
+          window.location.reload();
           setUserError(true);
         }
       } else {
@@ -72,8 +75,8 @@ const LoginSignup = () => {
     <form onSubmit={handleSubmit}>
       <h2>{formType === 'login' ? 'Login' : 'Sign Up'}</h2>
 
-      {errors.length > 0 && (
-        <div className="error">{errors.map((e, i) => <p key={i}>{e}</p>)}</div>
+      {userErrors.length > 0 && (
+        <div className="error">{userErrors.map((e, i) => <p key={i}>{e}</p>)}</div>
       )}
 
       {formType === 'signup' && (

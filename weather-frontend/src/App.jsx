@@ -37,26 +37,28 @@ function App() {
     </div>
     <Router>
       <WeatherProvider>
-        <Routes>
-          <Route path="/login" element={<LoginSignup />} />
-          <Route path="/" element={
-            <>
-              <Header />
-              <Main />
-            </>
-          } />
-          
-          {/* Protected Dashboard route */}
-          <Route element={<PersistLogin />}>
-          <Route path="/dashboard" element={
-            <SessionProvider>
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            </SessionProvider>
-          } />
-          </Route>
-        </Routes>
+        <SessionProvider>
+          <Routes>
+            <Route path="/login" element={<LoginSignup />} />
+            <Route path="/" element={
+              <>
+                <Header />
+                <Main />
+              </>
+            } />
+
+            {/* Protected Dashboard route */}
+            <Route element={<PersistLogin />}>
+            <Route path="/dashboard" element={
+              // <SessionProvider>
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              // </SessionProvider>
+            } />
+            </Route>
+          </Routes>
+        </SessionProvider>
       </WeatherProvider>
     </Router>
     </div>

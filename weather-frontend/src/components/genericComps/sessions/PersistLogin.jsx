@@ -4,20 +4,29 @@ import { SessionProvider } from '../../context/session.context';
 import {checkLogin} from '../../../utilities/ApiService';
 
 function PersistLogin() {
-  const {loading, accessToken, refreshToken} = useContext(SessionProvider)
+  const {loading, accessToken, setAccessToken, setUserData, authChecked, setAuthChecked } = useContext(SessionProvider)
 
   useEffect(() => {
-    function verifyRefreshToken(){
-      try{
-        checkLogin();
+    const verifyRefreshToken = async () => {
+      try {
+        const loginRes = checkLogin();
+        if (loginRes.authenticated) 
+          {
+            setUserData(loginRes.user)
+            setAccessToken(loginRes.accessToken)
+            setAuthChecked(true)
+          }
       } catch (err){
+        setUserData(null);
         console.log('Err refreshing access token')
+      } finally {
+        setAuthChecked(true)
       }
     }
-    if (!accessToken){
+    if (!accessToken && !authChecked){
       verifyRefreshToken();
     }
-  }, [accessToken, refreshToken])
+  }, [authChecked])
 
   return (
     <>

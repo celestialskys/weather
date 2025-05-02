@@ -1,15 +1,15 @@
 import { createContext, useEffect, useState } from 'react';
-
+import { checkLogin } from '../../utilities/ApiService';
 const SessionContext = createContext({
   userData: {},
-  accessToken: {},
-  refreshToken: {},
+  accessToken: checkLogin(),
+  authChecked: {},
   savedLocations: {},
   isUserLoading: false,
   userError: false,
   setUserData: () => {},
   setAccessToken: () => {},
-  setRefreshToken: () => {},
+  setAuthChecked: () => {},
   setSavedLocations: () => {},
   setIsUserLoading: () => {},
   setUserError: () => {},
@@ -18,7 +18,7 @@ const SessionContext = createContext({
 function SessionProvider({ children }){
     const [userData, setUserData] = useState({});
     const [accessToken, setAccessToken] = useState({});
-    const [refreshToken, setRefreshToken] = useState({});
+    const [authChecked, setAuthChecked] = useState({});
     const [savedLocations, setSavedLocations] = useState({});
     const [isUserLoading, setIsUserLoading] = useState(false);
     const [userError, setUserError] = useState(false);
@@ -28,13 +28,13 @@ function SessionProvider({ children }){
           value={{
             userData,
             accessToken,
-            refreshToken,
+            authChecked,
             savedLocations,
             isUserLoading,
             userError,
             setUserData,
             setAccessToken,
-            setRefreshToken,
+            setAuthChecked,
             setSavedLocations,
             setIsUserLoading,
             setUserError

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :weather, only: [:index ]
       # resource :session
       post 'login', to: 'sessions#create', as: :login
-      post 'logout', to: 'sessions#destroy', as: :logout
+      delete 'logout', to: 'sessions#destroy', as: :logout
       get 'session', to: 'sessions#check_session', as: :session 
       resources :passwords, param: :token
       resources :users, only: [:create, :index, :show] do 

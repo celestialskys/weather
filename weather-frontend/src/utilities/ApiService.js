@@ -2,9 +2,9 @@ import axios from 'axios';
 import currentWeather from './test/current-weather.json';
 import dailyService from './test/daily-service.json';
 import hourlyService from './test/hourly-serve.json';
-
-const BASE_WEATHER_API_URL = 'http://localhost:3000/api/weather';
-const BASE_API_URL = 'http://localhost:3000/api';
+import {setUserData, setAccessToken} from '../components/context/session.context'
+const BASE_WEATHER_API_URL = 'https://localhost:3000/api/weather';
+const BASE_API_URL = 'https://localhost:3000/api';
 export const RAPID_GEO_API_KEY=process.env.REACT_APP_RAPID_GEO_API_KEY;
 export const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
@@ -44,7 +44,7 @@ export const WeatherOpenApi = async (params) => {
 
 export async function loginUser(params){
   try  {
-    const response = await axios.post(`${BASE_API_URL}/login`, params );
+    const response = await axios.post(`${BASE_API_URL}/login`, { ...params, ...{withCredentials: true} } );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -54,7 +54,7 @@ export async function loginUser(params){
 
 export async function logoutUser(){
   try  {
-    const response = await axios.destroy(`${BASE_API_URL}/logout`);
+    const response = await axios.destroy(`${BASE_API_URL}/logout`, {withCredentials: true});
     return response.data;
   } catch (error) {
     console.log(error);
@@ -64,7 +64,7 @@ export async function logoutUser(){
 
 export async function createUser(params){
   try  {
-    const response = await axios.post(`${BASE_API_URL}/users`, { params });
+    const response = await axios.post(`${BASE_API_URL}/users`, { ...params, ...{withCredentials: true} });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -76,13 +76,14 @@ export async function checkLogin() {
     const response = await axios.get(`${BASE_API_URL}/session`,  { withCredentials: true });
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.log(`continuing not logged in`);
+    return (error)
   }
 }
+
 export async function getUser(params){
   try  {
-    const response = await axios.get(`${BASE_API_URL}/users`, { params });
+    const response = await axios.get(`${BASE_API_URL}/users`, { ...params, ...{withCredentials: true} });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -92,7 +93,7 @@ export async function getUser(params){
 
 export const fetchLocationData = async (params) => {
   try {
-    const response = await axios.post(`${BASE_WEATHER_API_URL}/location`, { params });
+    const response = await axios.post(`${BASE_WEATHER_API_URL}/location`, { ...params, ...{withCredentials: true} });
     return response.data;
 } catch (error) {
     console.error("Error fetching location:", error);

@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   const { accessToken, userData } = useContext(SessionContext);
-
-  let isLoggedIn = Object.keys(accessToken).length !== 0
+  let isLoggedIn = Object.keys(userData).length !== 0
   let userLink = isLoggedIn ? '/' : '/login'
 
   return (
@@ -17,8 +16,8 @@ function Header() {
         <Place/>
         <Search />
         <Settings/>
-        <Link to={userLink}><i className="bi bi-person-circle"></i></Link>
-        { Object.keys(accessToken).length !== 0 && (
+        <Link className='profile' to={userLink}><i className="bi bi-person-circle"></i></Link>
+        { isLoggedIn && (
           <div>Welcome {userData.firstname}</div>
         )}
         {/* <Profile/> */}
