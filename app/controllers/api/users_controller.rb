@@ -16,13 +16,11 @@ class Api::UsersController < ApplicationController
 
   # POST /users
   def create
-    byebug
     @user = User.new(user_params)
     
     if @user.save
-      byebug
       start_new_session_for @user
-      render json: @user
+      render json: { user: @user, session_token: @user.sessions[0].id }
     else
       render json: @user.errors, status: :unprocessable_entity
     end
