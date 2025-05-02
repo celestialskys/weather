@@ -8,6 +8,7 @@ import Main from './Main';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ThemeContext from './components/context/theme.context';
 import { WeatherProvider } from './components/context/weather.context';
+import { SessionProvider } from './components/context/session.context';
 import PrivateRoute from './components/genericComps/routes/PrivateRoute';
 import PersistLogin from './components/genericComps/sessions/PersistLogin';
 import Dashboard from './components/genericComps/Dashboard';
@@ -39,15 +40,15 @@ function App() {
         <Route path="/login" element = {<LoginSignup/>}></Route>
           <Route element = {<PersistLogin/>}>
             <Route path="/" element = {
-              <>
-              <WeatherProvider>
-              <Header/>
-              <PrivateRoute>
-                <Dashboard/>
-              </PrivateRoute>
-              <Main/>
-              </WeatherProvider>
-            </>
+              <SessionProvider>
+                <WeatherProvider>
+                <Header/>
+                <PrivateRoute>
+                  <Dashboard/>
+                </PrivateRoute>
+                <Main/>
+                </WeatherProvider>
+              </SessionProvider>
             }/>
 
           </Route>

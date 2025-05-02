@@ -1,39 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../../../styles/components/LoginSignup.scss';
+import { loginUser, createUser } from '../../../utilities/ApiService';
+import SessionContext from '../../context/session.context';
 
 const LoginSignup = () => {
-  const [formType, setFormType] = useState('login'); // 'login' or 'signup'
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    setUserData,
+    setAccessToken,
+    setIsUserLoading,
+    setUserError,
+  } = useContext(SessionContext);
+
+  const [formType, setFormType] = useState('login');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-  
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors([]);
-    if (!firstname || !lastname || !password || !email){
-      return setErrors(["Please fill out all fields"])
-    }  else{
-      if (formType === 'login') {
-      console.log('Logging in with:', email, password);
-      } else {
-        console.log('Signing up with:', firstname, lastname, email, password);
-      }
+
+    if (!email || !password || (formType === 'signup' && (!firstname || !lastname))) {
+      return setErrors(['Please fill out all fields']);
     }
 
-    
+    if (email.length < 6 || !email.includes('@')) {
+      return setErrors(['Something is wrong with your email']);
+    }
+
+    setIsUserLoading(true);
+
+    try {
+      if (formType === 'login') {
+        const res = await loginUser({ email_address: email, password });
+
+        if (res.status === 'fulfilled') {
+          setUserData(res.value.user);
+          setAccessToken(res.value.session_token);
+        } else {
+          setUserError(true);
+        }
+      } else {
+        const res = await createUser({
+          firstname,
+          lastname,
+          email_address: email,
+          password,
+        });
+
+        if (res.status === 'fulfilled') {
+          setUserData(res.value.user);
+          setAccessToken(res.value.session_token);
+        } else {
+          setUserError(true);
+        }
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setUserError(true);
+    } finally {
+      setIsUserLoading(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>{formType === 'login' ? 'Login' : 'Sign Up'}</h2>
 
+      {errors.length > 0 && (
+        <div className="error">{errors.map((e, i) => <p key={i}>{e}</p>)}</div>
+      )}
+
       {formType === 'signup' && (
-        <div className='sign-up'>
-          <div className='firstname'>
+        <div className="sign-up">
+          <div className="firstname">
             <label htmlFor="firstname">
-                <i className="bi bi-person"></i> Firstname:
+              <i className="bi bi-person"></i> Firstname:
             </label>
             <input
               type="text"
@@ -42,9 +86,10 @@ const LoginSignup = () => {
               onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
-          <div className='lastname'>
-            <label htmlFor="lastname"><i className="bi bi-person"></i>
-             Lastname:</label>
+          <div className="lastname">
+            <label htmlFor="lastname">
+              <i className="bi bi-person"></i> Lastname:
+            </label>
             <input
               type="text"
               id="lastname"
@@ -55,11 +100,11 @@ const LoginSignup = () => {
         </div>
       )}
 
-      <div className='login'>
-        <div className='email'>
+      <div className="login">
+        <div className="email">
           <label htmlFor="email">
             <i className="bi bi-envelope"></i> Email:
-            </label>
+          </label>
           <input
             type="text"
             id="email"
@@ -67,11 +112,10 @@ const LoginSignup = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className='password'>
-            <label htmlFor="password">
-                <i className="bi bi-lock-fill"></i>
-                Password:
-            </label>
+        <div className="password">
+          <label htmlFor="password">
+            <i className="bi bi-lock-fill"></i> Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -85,7 +129,6 @@ const LoginSignup = () => {
         {formType === 'login' ? 'Login' : 'Sign Up'}
       </button>
 
-      {/* Toggle Button */}
       <button
         type="button"
         onClick={() => setFormType(formType === 'login' ? 'signup' : 'login')}

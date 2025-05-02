@@ -1,25 +1,33 @@
 import { createContext, useEffect, useState } from 'react';
-const WeatherContext = createContext();
-import { login } from '../../utilities/ApiService';
+
+const SessionContext = createContext({
+  userData: {},
+  accessToken: {},
+  savedLocations: {},
+  isUserLoading: false,
+  userError: false});
 
 function SessionProvider({ children }){
     const [userData, setUserData] = useState({});
-    const [sessionData, setSessionData] = useState({});
+    const [accessToken, setAccessToken] = useState({});
     const [savedLocations, setSavedLocations] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [isUserLoading, setIsUserLoading] = useState(false);
+    const [userError, setUserError] = useState(false);
 
     return (
-        <SessionProvider.Provider
+        <SessionContext.Provider
           value={{
             userData,
-            sessionData,
+            accessToken,
             savedLocations,
-            isLoading,
-            error
+            isUserLoading,
+            userError
           }}
         >
           {children}
-        </SessionProvider.Provider>
+        </SessionContext.Provider>
       );
 }
+
+export { SessionProvider };
+export default SessionContext;

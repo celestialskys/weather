@@ -6,11 +6,12 @@ import './styles/components/Main.scss';
 import CurrentWeather from './components/weatherElements/CurrentWeather';
 import Forecast from './components/weatherElements/Forecast';
 import WeatherContext from './components/context/weather.context';
+import SessionContext from './components/context/session.context';
 import ErrorBox from './components/genericComps/ErrorBox';
 
 function Main(){
     const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext)
-    //  useContext(WeatherContext);
+    const userContext = useContext(SessionContext);
 
     // const [isToggled, setIsToggled] = useState(false);
     // const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
