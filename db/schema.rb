@@ -32,10 +32,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203436) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "user_locations", id: false, force: :cascade do |t|
+  create_table "user_locations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "location_id", null: false
     t.boolean "is_default", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_user_locations_on_location_id"
     t.index ["user_id"], name: "index_user_locations_on_user_id"
   end
@@ -51,4 +53,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_203436) do
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "user_locations", "locations"
+  add_foreign_key "user_locations", "users"
 end

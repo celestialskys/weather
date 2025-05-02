@@ -1,9 +1,11 @@
 class AddUserLocalJoinsTable < ActiveRecord::Migration[8.0]
   def change
-    create_join_table :users, :locations, table_name: :user_locations do |t|
-      t.index :user_id
-      t.index :location_id
+    create_table :user_locations do |t|
+      t.references :user, foreign_key: true, null: false
+      t.references :location, foreign_key: true, null: false
       t.boolean :is_default, default: false, null: false
+    
+      t.timestamps
     end
   end
 end
