@@ -15,13 +15,6 @@ function DailyForecastWidget({data}) {
 
   let precipitation = rain || snow || 0
 
-  // const now_date = {
-  //   day: new Intl.DateTimeFormat(navigator.language, {
-  //     weekday: 'short',
-  //     day: '2-digit',
-  //     month: '2-digit',
-  //   }).format(new Date())
-  // };
   const dateFromApi = new Date(dt * 1000); // dt = 1746270000
 
   const weather_date = {
