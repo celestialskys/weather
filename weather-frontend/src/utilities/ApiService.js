@@ -146,17 +146,23 @@ const GEO_API_OPTIONS = {
   },
 };
 
-export async function fetchCities(input) {
-  try {
-    const response = await fetch(
-      `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
-      GEO_API_OPTIONS
-    );
+// export async function fetchCities(input) {
+//   try {
+//     const response = await fetch(
+//       `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
+//       GEO_API_OPTIONS
+//     );
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//     return;
+//   }
+// }
+
+export async function fetchCities(query) {
+  const response = await fetch(`http://localhost:3000/api/geo/cities?query=${query}`);
+  const data = await response.json();
+  return data;
+};

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :locations, only: [:show, :create, :index ]
       get 'find_location', to: 'locations#find_location', as: :find_location
       resources :user_locations, only:[:update, :create, :destroy]
+      get 'geo/cities', to: 'geo#cities'
 
       # resources :locations, only:[:create, :index]
       match '*path', to: 'base#not_found', via: :all
