@@ -83,7 +83,6 @@ export async function checkLogin() {
     }})
     return response.data;
   } catch (error) {
-    debugger
     console.log(`continuing not logged in`);
     return (error)
   }
@@ -99,11 +98,24 @@ export async function getUser(params){
   }
 }
 export async function getUserLocations(){
-  debugger
   let token = AuthStorage.getToken();
 
   try  {
     const response = await axios.get(`${BASE_API_URL}/locations`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+export async function removeUserLocation(params){
+  let token = AuthStorage.getToken();
+  try  {
+    const response = await axios.delete(`${BASE_API_URL}/user_locations/${params.localId}`,{params}, {
       headers: {
         Authorization: `Bearer ${token}`
       }

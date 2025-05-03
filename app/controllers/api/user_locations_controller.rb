@@ -1,4 +1,4 @@
-class Api::SessionsController < ApplicationController
+class Api::UserLocationsController < ApplicationController
     include Authentication
     allow_unauthenticated_access
     def create
@@ -8,15 +8,17 @@ class Api::SessionsController < ApplicationController
     end
 
     def destroy
-        location = UserLocation.find_by(location_id: params[:location_id], user_id: Current.user.id)
+        byebug
+        location = UserLocation.find_by(location_id: params[:local_id], user_id: params[:user_id])
+        updated_locations = Location.where(user_id: params[:user_id])
         if location.destroy
-            render json: {destroyed: true}
+            render json: {locations: updated_locations, destroyed: true}
         else
             render json: {destroyed: false}
         end
     end
 
     def location_params
-        params.expect(location: [ :label, :country, :region, :zip, :lat, :lon, :timezone_id ], :user_id)
+        params.require(:location).permit([ :label, :country, :region, :zip, :lat, :lon, :timezone_id ], :user_id)
     end
 end

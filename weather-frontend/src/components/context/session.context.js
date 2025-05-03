@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { checkLogin, getUserLocations } from '../../utilities/ApiService';
+import { checkLogin, removeUserLocation } from '../../utilities/ApiService';
 const SessionContext = createContext({
   userData: {},
   accessToken: null,
@@ -25,7 +25,7 @@ function SessionProvider({ children }){
     const [isUserLoading, setIsUserLoading] = useState(false);
     const [userError, setUserError] = useState(false);
     const [shouldRefreshLocations, setShouldRefreshLocations] = useState(false);
-
+    
     return (
         <SessionContext.Provider
           value={{

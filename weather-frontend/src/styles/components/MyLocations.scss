@@ -1,0 +1,48 @@
+@use '../variables/variables' as *;
+.location-list {
+    display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  }
+  
+  .location-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    border: 1px solid var(--secondary-text-color);
+    background-image: var(--background-image);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    width: 200px;             // or use max-width / min-width as needed
+    cursor: pointer;
+    transition: background 0.2s;
+  
+    &:hover {
+      background: var(--secondary-text-color);
+    }
+  
+    .location-name {
+      font-weight: 500;
+      font-size: 1rem;
+      flex-grow: 1;
+    }
+  
+    .remove {
+      background-color: #ffe6e6;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      color: #cc0000;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+  
+      &:hover {
+        background-color: #ffcccc;
+      }
+    }
+  }
+  

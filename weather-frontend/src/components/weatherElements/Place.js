@@ -4,7 +4,7 @@ import WeatherContext from '../context/weather.context';
 function Place() {
   const {place} = useContext(WeatherContext)
 
-  if (!place?.label) {
+  if (!place?.label && !place?.country) {
     return <div>Loading location...</div>;
   }
   return (
@@ -12,7 +12,10 @@ function Place() {
         <i className="bi bi-geo-alt-fill"></i> <b> {place.label}</b>
         { place.country_code && (
            <>, {place.country_code}</>
-        )
+        )}
+        { !place.country_code && place.country && (
+          <>, {place.country_code}</>
+       )
         }
     </div>
     )
