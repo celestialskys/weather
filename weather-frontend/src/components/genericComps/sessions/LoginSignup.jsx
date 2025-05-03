@@ -9,6 +9,7 @@ const LoginSignup = () => {
     setUserData,
     setAccessToken,
     setIsUserLoading,
+    setShouldRefreshLocations,
     setUserError,
     setAuthChecked
   } = useContext(SessionContext);
@@ -42,6 +43,7 @@ const LoginSignup = () => {
           setUserData(res.user);
           setAccessToken(res.session_token);
           setAuthChecked(true)
+          setShouldRefreshLocations(true)
           navigate('/');
         } else {
           window.location.reload();

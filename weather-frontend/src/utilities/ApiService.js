@@ -41,7 +41,9 @@ export const WeatherOpenApi = async (params) => {
 
 export async function loginUser(params){
   try  {
-    const response = await axios.post(`${BASE_API_URL}/login`, { ...params, ...{withCredentials: true} } );
+    const response = await axios.post(`${BASE_API_URL}/login`, params, {
+      withCredentials: true
+    });    
     return response.data;
   } catch (error) {
     console.log(error);
@@ -61,16 +63,21 @@ export async function logoutUser(){
 
 export async function createUser(params){
   try  {
-    const response = await axios.post(`${BASE_API_URL}/users`, { ...params, ...{withCredentials: true} });
+    const response = await axios.post(`${BASE_API_URL}/users`, params, {
+      withCredentials: true
+    });    
     return response.data;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 export async function checkLogin() {
   try  {
-    const response = await axios.get(`${BASE_API_URL}/session`,  { withCredentials: true });
+    const response = await axios.get(`${BASE_API_URL}/session`, {
+      withCredentials: true
+    }); 
     return response.data;
   } catch (error) {
     debugger
@@ -81,7 +88,7 @@ export async function checkLogin() {
 
 export async function getUser(params){
   try  {
-    const response = await axios.get(`${BASE_API_URL}/users`, { ...params, ...{withCredentials: true} });
+    const response = await axios.get(`${BASE_API_URL}/users`, params, {withCredentials: true} );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -90,7 +97,7 @@ export async function getUser(params){
 }
 export async function getUserLocations(params){
   try  {
-    const response = await axios.get(`${BASE_API_URL}/locations`, { ...params, ...{withCredentials: true} });
+    const response = await axios.get(`${BASE_API_URL}/locations`,  params, {withCredentials: true} );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -100,7 +107,7 @@ export async function getUserLocations(params){
 
 export const fetchLocationData = async (params) => {
   try {
-    const response = await axios.post(`${BASE_WEATHER_API_URL}/location`, { ...params, ...{withCredentials: true} });
+    const response = await axios.post(`${BASE_WEATHER_API_URL}/location`, params);
     return response.data;
 } catch (error) {
     console.error("Error fetching location:", error);

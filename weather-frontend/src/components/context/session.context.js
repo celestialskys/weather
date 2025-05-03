@@ -2,11 +2,13 @@ import { createContext, useEffect, useState } from 'react';
 import { checkLogin, getUserLocations } from '../../utilities/ApiService';
 const SessionContext = createContext({
   userData: {},
-  accessToken: {},
-  authChecked: {},
+  accessToken: null,
+  authChecked: false,
   savedLocations: {},
   isUserLoading: false,
   userError: false,
+  shouldRefreshLocations: {},
+  setShouldRefreshLocations: () => {},
   setUserData: () => {},
   setAccessToken: () => {},
   setAuthChecked: () => {},
@@ -17,31 +19,36 @@ const SessionContext = createContext({
 
 function SessionProvider({ children }){
     const [userData, setUserData] = useState({});
-    const [accessToken, setAccessToken] = useState({});
-    const [authChecked, setAuthChecked] = useState({});
+    const [accessToken, setAccessToken] = useState();
+    const [authChecked, setAuthChecked] = useState(false);
     const [savedLocations, setSavedLocations] = useState({});
     const [isUserLoading, setIsUserLoading] = useState(false);
     const [userError, setUserError] = useState(false);
+    const [shouldRefreshLocations, setShouldRefreshLocations] = useState(false);
 
-    useEffect(()=>{
-        const _getUserLocations = async () =>{
-          try {
-            const savedUserLocations = await getUserLocations({user_id: userData.id})
-            debugger
-            if (savedUserLocations){
-              setSavedLocations(savedUserLocations)
-            }
-          }catch (error) {
-            console.error('there was a prob gettin locations')
+    useEffect(() => {
+      const _getUserLocations = async () => {
+        try {
+          const savedUserLocations = await getUserLocations({ user_id: userData.id });
+          if (savedUserLocations) {
+            setSavedLocations(savedUserLocations);
           }
+        } catch (error) {
+          console.error('Error fetching user locations:', error);
+        } finally {
+          setShouldRefreshLocations(false);
         }
-        debugger
-        if (Object.keys(accessToken)!==0 && Object.keys(userData).length !==0){
-          _getUserLocations();
-        }
-    }, [userData])
-
-
+      };
+      if (
+        userData?.id &&
+        accessToken &&
+        shouldRefreshLocations
+      ) {
+        setTimeout(() => {
+        _getUserLocations();}, 100)
+      }
+    }, [userData, accessToken, shouldRefreshLocations]);
+    
     return (
         <SessionContext.Provider
           value={{
@@ -56,7 +63,9 @@ function SessionProvider({ children }){
             setAuthChecked,
             setSavedLocations,
             setIsUserLoading,
-            setUserError
+            setUserError,
+            shouldRefreshLocations,
+            setShouldRefreshLocations,
           }}
         >
           {children}

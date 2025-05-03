@@ -13,32 +13,6 @@ function Main(){
     const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext)
     const userContext = useContext(SessionContext);
 
-    // const [isToggled, setIsToggled] = useState(false);
-    // const [weatherData, setWeatherData, weatherQuery, setWeatherQuery ] = useState(null);
-    // const didMount = useRef(false);
-
-    // useEffect(() => {
-    //     const saved = localStorage.getItem('unitToggle');
-    //     if (saved !== null) setIsToggled(saved === 'true');
-    // }, []);
-
-    // useEffect(() => {
-    //     if (!didMount.current) {
-    //         didMount.current = true;
-    //         return;
-    //     }
-      
-    //     const unit = isToggled ? 'imperial' : 'metric';
-    //     localStorage.setItem('unitToggle', isToggled);
-    //     weatherOpenApi(weatherQuery).then((data) => {
-    //         setWeatherData(data);
-    //       })
-    //       .catch((err) => {
-    //         console.error('Failed to fetch weather data:', err);
-    //       });
-        
-    // }, [isToggled]);
-
     let appContent = (
         <Box
             xs={12}

@@ -40,22 +40,23 @@ function App() {
         <SessionProvider>
           <Routes>
             <Route path="/login" element={<LoginSignup />} />
-            <Route path="/" element={
-              <>
-                <Header />
-                <Main />
-              </>
-            } />
-
-            {/* Protected Dashboard route */}
             <Route element={<PersistLogin />}>
-            <Route path="/dashboard" element={
-              // <SessionProvider>
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              // </SessionProvider>
-            } />
+
+              <Route path="/" element={
+                <>
+                  <Header />
+                  <Main />
+                </>
+              } />
+
+              {/* Protected Dashboard route */}
+              <Route path="/dashboard" element={
+                // <SessionProvider>
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                // </SessionProvider>
+              } />
             </Route>
           </Routes>
         </SessionProvider>

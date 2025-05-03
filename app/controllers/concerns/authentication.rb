@@ -26,6 +26,9 @@ module Authentication
     end
 
     def find_session_by_cookie
+      if cookies.signed[:session_id]
+        byebug
+      end
       Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
     end
 
@@ -39,13 +42,14 @@ module Authentication
     end
 
     def start_new_session_for(user)
+      byebug
       user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = {
           value: session.id,
           httponly: true,
           same_site: :none,
-          secure: true
+          secure: false
         }        # secure: false for testing
       end
     end
