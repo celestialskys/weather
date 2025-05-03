@@ -27,17 +27,21 @@ function HourlyForecastWidget({data}) {
       minute: '2-digit',
     }).format(new Date().setMinutes(0)),
   };
+  
+  const dateObj = new Date(dt_txt);
+
   const weather_date = {
     day: new Intl.DateTimeFormat(locale, {
       weekday: 'short',
       day: '2-digit',
       month: '2-digit',
-    }).format(new Date(dt_txt)),
+    }).format(dateObj),
     time: new Intl.DateTimeFormat(locale, {
       hour: '2-digit',
       minute: '2-digit',
-    }).format(new Date(dt_txt).setMinutes(0)),
+    }).format(dateObj),
   };
+
   const midnightTime = new Intl.DateTimeFormat(locale, {
     hour: '2-digit',
     minute: '2-digit',
