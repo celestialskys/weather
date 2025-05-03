@@ -18,6 +18,6 @@ class Api::SessionsController < ApplicationController
     end
 
     def location_params
-        params.expect(location: [ :label, :country, :region, :zip, :lat, :lon, :timezone_id ])
+        params.expect(location: [ :label, :country, :region, :zip, :lat, :lon, :timezone_id ], :user_id)
     end
 end

@@ -90,6 +90,15 @@ export async function getUser(params){
     throw error;
   }
 }
+export async function getUserLocations(params){
+  try  {
+    const response = await axios.get(`${BASE_API_URL}/locations`, { ...params, ...{withCredentials: true} });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 export const fetchLocationData = async (params) => {
   try {

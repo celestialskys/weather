@@ -1,11 +1,12 @@
 class Api::LocationsController < ApplicationController
   include Authentication
-  
-  allow_unauthenticated_access
+  before_action :require_authentication
+
+  # allow_unauthenticated_access
   # before_action :set_location, only: %i[ show update destroy ]
 
-  # GET /user_id/locations
   def index
+    byebug
     @locations = Current.user.locations
     render json: @locations
   end
@@ -26,7 +27,7 @@ class Api::LocationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /locations/1
+  # PATCH/PUT /locations
   def update
     if @location.update(location_params)
       render json: @location

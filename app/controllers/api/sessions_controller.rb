@@ -17,8 +17,6 @@ class Api::SessionsController < ApplicationController
   end
 
   def check_session
-    Rails.logger.info "Cookie received: #{cookies.signed[:session_id]}"
-
     if authenticated?
       render json: {
         authenticated: true,

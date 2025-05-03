@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { checkLogin } from '../../utilities/ApiService';
+import { checkLogin, getUserLocations } from '../../utilities/ApiService';
 const SessionContext = createContext({
   userData: {},
   accessToken: checkLogin(),
@@ -23,18 +23,22 @@ function SessionProvider({ children }){
     const [isUserLoading, setIsUserLoading] = useState(false);
     const [userError, setUserError] = useState(false);
 
-    // useEffect(()=>{
-    //     const _getUserLocations = async () =>{
-    //       try {
-    //         const savedLocations = fetchLocationData(
-    //           {}
-    //         )
-    //       }
-    //     }
-    //     if (accessToken){
-    //       _getUserLocations();
-    //     }
-    // }, [savedLocations])
+    useEffect(()=>{
+        const _getUserLocations = async () =>{
+          try {
+            const savedUserLocations = await getUserLocations({user_id: userData.id})
+            debugger
+            if (savedUserLocations){
+              setSavedLocations(savedUserLocations)
+            }
+          }catch (error) {
+            console.error('there was a prob gettin locations')
+          }
+        }
+        if (accessToken && Object.keys(userData).length !==0){
+          _getUserLocations();
+        }
+    }, [userData])
 
 
     return (

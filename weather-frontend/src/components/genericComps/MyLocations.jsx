@@ -4,7 +4,6 @@ import HorizontallyScrollable from './HorizontallyScrollable';
 
 function MyLocations() {
     const savedLocations = useContext(SessionContext)
-    
 
   return (
     <>

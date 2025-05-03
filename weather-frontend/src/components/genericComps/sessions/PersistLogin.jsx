@@ -9,7 +9,7 @@ function PersistLogin() {
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
-        const loginRes = checkLogin();
+        const loginRes = await checkLogin();
         if (loginRes.authenticated) 
           {
             setUserData(loginRes.user)
