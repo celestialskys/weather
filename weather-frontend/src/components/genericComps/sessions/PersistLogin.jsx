@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom';
 import SessionContext from '../../context/session.context';
 import {checkLogin, getUserLocations} from '../../../utilities/ApiService';
-
+import AuthStorage from '../../../utilities/authStorage';
 function PersistLogin() {
   const {loading, accessToken, setAccessToken, userData, setUserData, authChecked, setAuthChecked, setShouldRefreshLocations, shouldRefreshLocations, setSavedLocations, } = useContext(SessionContext);
 
@@ -11,11 +11,15 @@ function PersistLogin() {
       try {
         const loginRes = await checkLogin();
         if (loginRes.authenticated) {
+          AuthStorage.setSession({
+            token: loginRes.session_token,
+            user: loginRes.user
+          });
           setUserData(loginRes.user);
           setAccessToken(loginRes.accessToken);
           setShouldRefreshLocations(true);
-          localStorage.setItem('authToken', loginRes.accessToken);
-          localStorage.setItem('user', JSON.stringify(loginRes.user));
+          // localStorage.setItem('authToken', loginRes.accessToken);
+          // localStorage.setItem('user', JSON.stringify(loginRes.user));
         } else {
           setUserData({});
         }
@@ -24,6 +28,8 @@ function PersistLogin() {
         console.log('Err refreshing access token');
       } finally {
         setAuthChecked(true);
+        console.log('TOKEN:', localStorage.getItem('authToken'));
+        console.log('USER:', JSON.parse(localStorage.getItem('user')));
       }
     };
     if(!authChecked){

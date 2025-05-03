@@ -3,7 +3,7 @@ import '../../../styles/components/LoginSignup.scss';
 import { loginUser, createUser } from '../../../utilities/ApiService';
 import SessionContext from '../../context/session.context';
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
-
+import AuthStorage from '../../../utilities/authStorage';
 const LoginSignup = () => {
   const {
     setUserData,
@@ -40,12 +40,16 @@ const LoginSignup = () => {
       if (formType === 'login') {
         const res = await loginUser({ email_address: email, password })
         if (res.authenticated) {
+          AuthStorage.setSession({
+            token: res.session_token,
+            user: res.user
+          });
           setUserData(res.user);
           setAccessToken(res.session_token);
           setAuthChecked(true)
           setShouldRefreshLocations(true)
-          localStorage.setItem('authToken', res.session_token);
-          localStorage.setItem('user', JSON.stringify(res.user));
+          // localStorage.setItem('authToken', res.session_token);
+          // localStorage.setItem('user', JSON.stringify(res.user));
           navigate('/');
         } else {
           // window.location.reload();
