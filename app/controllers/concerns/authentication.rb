@@ -30,7 +30,6 @@ module Authentication
     end
 
     def request_authentication
-      byebug
       session[:return_to_after_authenticating] = request.url
       # redirect_to api_login_path
     end

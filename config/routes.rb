@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       # resource :session
       post 'login', to: 'sessions#create', as: :login
       delete 'logout', to: 'sessions#destroy', as: :logout
+      get 'testing', to: 'sessions#test', as: :testing
+
       get 'session', to: 'sessions#check_session', as: :session 
       resources :passwords, param: :token
       resources :users, only: [:create, :index, :show]

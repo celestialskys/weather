@@ -1,10 +1,20 @@
 class Api::SessionsController < ApplicationController
   include Authentication
+  skip_before_action :verify_authenticity_token
 
-  allow_unauthenticated_access only: %i[ new create check_session]
+  allow_unauthenticated_access only: %i[ new create  test check_session]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
+  end
+
+  def test
+    cookies[:test_cookie] = {
+      value: '12345',
+      secure: true,
+      same_site: :none
+    }
+    render json: { ok: true }
   end
 
   def create

@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { checkLogin, getUserLocations } from '../../utilities/ApiService';
 const SessionContext = createContext({
   userData: {},
-  accessToken: checkLogin(),
+  accessToken: {},
   authChecked: {},
   savedLocations: {},
   isUserLoading: false,
@@ -35,7 +35,8 @@ function SessionProvider({ children }){
             console.error('there was a prob gettin locations')
           }
         }
-        if (accessToken && Object.keys(userData).length !==0){
+        debugger
+        if (Object.keys(accessToken)!==0 && Object.keys(userData).length !==0){
           _getUserLocations();
         }
     }, [userData])
