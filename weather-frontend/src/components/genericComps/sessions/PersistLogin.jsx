@@ -45,7 +45,6 @@ function PersistLogin() {
           setShouldRefreshLocations(false);
         }
       };
-      debugger
       if (
         userData?.id &&
         shouldRefreshLocations

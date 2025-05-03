@@ -3,21 +3,17 @@ import SessionContext from '../context/session.context';
 import HorizontallyScrollable from './HorizontallyScrollable';
 
 function MyLocations() {
-    const savedLocations = useContext(SessionContext)
-
+    const {savedLocations} = useContext(SessionContext)
+    debugger
   return (
     <>
       <div className = 'locations'>
             <div className='locations-container'>
                 <h3>Your Saved Locations</h3>
                 <HorizontallyScrollable className='widget-container'>
-                    { data.list.map((singleData)=>(
+                    { savedLocations.map((singleData)=>(
                         <div key={singleData.id}>
-                            {type == 'hourly' ? (
-                                <HourlyForecastWidget data={singleData}/>
-                            ) : (
-                                <DailyForecastWidget data={singleData}/>
-                            )}
+                            <button>{singleData.name}</button>
                         </div>
                     ))}
                 </HorizontallyScrollable>

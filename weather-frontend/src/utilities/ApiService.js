@@ -102,8 +102,8 @@ export async function getUser(params){
   }
 }
 export async function getUserLocations(){
-  debugger
   let token = localStorage.getItem('authToken');
+  debugger
 
   try  {
     const response = await axios.get(`${BASE_API_URL}/locations`, {

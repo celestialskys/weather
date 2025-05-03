@@ -8,10 +8,11 @@ import Forecast from './components/weatherElements/Forecast';
 import WeatherContext from './components/context/weather.context';
 import SessionContext from './components/context/session.context';
 import ErrorBox from './components/genericComps/ErrorBox';
+import MyLocations from './components/genericComps/MyLocations';
 
 function Main(){
     const {weatherData, hourlyForcast, weekForecast, error, isLoading} = useContext(WeatherContext)
-    const userContext = useContext(SessionContext);
+    const {userContext, savedLocations} = useContext(SessionContext);
 
     let appContent = (
         <Box
@@ -88,6 +89,9 @@ function Main(){
                     ></Box>
                     <div id="autocomplete" className="autocomplete-container"></div>
                 </Grid>
+                {savedLocations.length > 0 && (
+                    <MyLocations/>
+                )}
                 {appContent}
             </Grid>
         </Container>
