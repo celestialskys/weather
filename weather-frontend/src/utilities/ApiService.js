@@ -115,7 +115,7 @@ export async function getUserLocations(){
 export async function removeUserLocation(params){
   let token = AuthStorage.getToken();
   try  {
-    const response = await axios.delete(`${BASE_API_URL}/user_locations/${params.localId}`,{params}, {
+    const response = await axios.delete(`${BASE_API_URL}/user_locations/${params.local_id}`,{params}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -126,6 +126,7 @@ export async function removeUserLocation(params){
     throw error;
   }
 }
+
 
 export const fetchLocationData = async (params) => {
   try {

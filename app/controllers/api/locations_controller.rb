@@ -37,7 +37,6 @@ class Api::LocationsController < ApplicationController
 
   # DELETE /locations/1
   def destroy
-    byebug
     if @location.destroy
       render json: { locations: Current.user.locations, destroyed: true}
     else

@@ -22,8 +22,7 @@ function MyLocations() {
     
 
     const removeLocation = async (localId) => {
-        let updatedLocations = [savedLocations]
-        updatedLocations = await removeUserLocation({local_id: localId, user_id: userData.id});
+        let updatedLocations = await removeUserLocation({local_id: localId, user_id: userData.id});
         if (updatedLocations.destroyed){
             setSavedLocations(updatedLocations.locations)
         }

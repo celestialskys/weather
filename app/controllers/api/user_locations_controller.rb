@@ -8,11 +8,11 @@ class Api::UserLocationsController < ApplicationController
     end
 
     def destroy
-        byebug
         location = UserLocation.find_by(location_id: params[:local_id], user_id: params[:user_id])
-        updated_locations = Location.where(user_id: params[:user_id])
+        updated_user_locations = UserLocation.where(user_id: params[:user_id]).select(:location_id)
+        locations = Location.where(id: updated_user_locations.map(&:location_id))
         if location.destroy
-            render json: {locations: updated_locations, destroyed: true}
+            render json: {locations: locations, destroyed: true}
         else
             render json: {destroyed: false}
         end
