@@ -17,12 +17,26 @@ class Api::SessionsController < ApplicationController
   #   render json: { ok: true }
   # end
 
+  # def create
+  #   if @user = User.authenticate_by(params.permit(:email_address, :password))
+  #     start_new_session_for(@user)
+  #     render json: { user: @user, session_token: Current.session.id, authenticated: true }
+  #   else
+  #     redirect_to api_login_path, alert: "Try another email address or password."
+  #   end
+  # end
   def create
-    if @user = User.authenticate_by(params.permit(:email_address, :password))
-      start_new_session_for(@user)
-      render json: { user: @user, session_token: Current.session.id, authenticated: true }
+    user = User.find_by(email_address: params[:email_address])
+  
+    if user&.authenticate(params[:password])
+      session = start_new_session_for(user)
+      render json: {
+        user: user,
+        session_token: session.id,  # This becomes the client-side auth token
+        authenticated: true
+      }
     else
-      redirect_to api_login_path, alert: "Try another email address or password."
+      render json: { error: 'Invalid credentials' }, status: :unauthorized
     end
   end
 
@@ -30,8 +44,8 @@ class Api::SessionsController < ApplicationController
     if authenticated?
       render json: {
         authenticated: true,
-        user: Current.session.user.slice(:id, :email, :firstname, :lastname),
-        session_token: Current.session
+        user: Current.session.user.slice(:id, :email_address, :firstname, :lastname),
+        session_token: Current.session.id
       }
     else
       render json: { authenticated: false }, status: :unauthorized

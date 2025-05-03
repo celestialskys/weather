@@ -44,6 +44,8 @@ const LoginSignup = () => {
           setAccessToken(res.session_token);
           setAuthChecked(true)
           setShouldRefreshLocations(true)
+          localStorage.setItem('authToken', res.session_token);
+          localStorage.setItem('user', JSON.stringify(res.user));
           navigate('/');
         } else {
           window.location.reload();

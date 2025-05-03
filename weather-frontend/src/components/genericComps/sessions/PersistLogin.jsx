@@ -10,9 +10,12 @@ function PersistLogin() {
     const verifyRefreshToken = async () => {
       try {
         const loginRes = await checkLogin();
+        debugger
         if (loginRes.authenticated){
           setUserData(loginRes.user)
           setAccessToken(loginRes.accessToken)
+          localStorage.setItem('authToken', loginRes.accessToken);
+          localStorage.setItem('user', JSON.stringify(loginRes.user));
         }
 
       } catch(err) {

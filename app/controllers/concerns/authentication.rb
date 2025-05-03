@@ -22,19 +22,17 @@ module Authentication
     end
 
     def resume_session
-      Current.session ||= find_session_by_cookie
+      Current.session ||= find_session_by_token
     end
 
-    def find_session_by_cookie
-      if cookies.signed[:session_id]
-        byebug
-      end
-      Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+    def find_session_by_token
+      byebug
+      token = request.headers['Authorization']&.split(' ')&.last
+      session = Session.find_by(id: token)
     end
 
     def request_authentication
-      session[:return_to_after_authenticating] = request.url
-      # redirect_to api_login_path
+      render json: { error: 'Unauthorized' }, status: :unauthorized
     end
 
     def after_authentication_url
@@ -42,15 +40,11 @@ module Authentication
     end
 
     def start_new_session_for(user)
-      byebug
-      user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
+      user.sessions.create!(
+        user_agent: request.user_agent,
+        ip_address: request.remote_ip
+      ).tap do |session|
         Current.session = session
-        cookies.signed.permanent[:session_id] = {
-          value: session.id,
-          httponly: true,
-          same_site: :none,
-          secure: false
-        }        # secure: false for testing
       end
     end
 

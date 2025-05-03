@@ -8,7 +8,6 @@ class Api::SessionsController < ApplicationController
     end
 
     def destroy
-        binding.pry
         location = UserLocation.find_by(location_id: params[:location_id], user_id: Current.user.id)
         if location.destroy
             render json: {destroyed: true}

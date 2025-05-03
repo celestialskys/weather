@@ -5,6 +5,8 @@ import hourlyService from './test/hourly-serve.json';
 import {setUserData, setAccessToken} from '../components/context/session.context'
 import {BASE_WEATHER_API_URL, BASE_API_URL, RAPID_GEO_API_KEY, GEO_API_URL} from '../config.js'
 
+const token = localStorage.getItem('authToken');
+
 // # WeatherStack::Services::FetchWeather.new().perform({ path:"weather", params: { "lon": "44.34", "lat":"44.34"} })
 export const testingWeatherOpenApi = (params)=> {
   let my_path = params?.path
@@ -74,10 +76,12 @@ export async function createUser(params){
 }
 
 export async function checkLogin() {
+  debugger
   try  {
-    const response = await axios.get(`${BASE_API_URL}/session`, {
-      withCredentials: true
-    }); 
+    const response = await axios.get(`${BASE_API_URL}/session`, { 
+      headers:{
+        Authorization: `Bearer ${token}`
+    }})
     return response.data;
   } catch (error) {
     debugger
@@ -97,7 +101,11 @@ export async function getUser(params){
 }
 export async function getUserLocations(params){
   try  {
-    const response = await axios.get(`${BASE_API_URL}/locations`,  params, {withCredentials: true} );
+    const response = await axios.get(`${BASE_API_URL}/locations`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.log(error);
