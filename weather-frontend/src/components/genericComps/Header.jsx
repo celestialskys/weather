@@ -7,10 +7,10 @@ import '../../styles/components/Header.scss';
 import { Link } from 'react-router-dom';
 
 function Header() {
-  const { accessToken, userData } = useContext(SessionContext);
-  let isLoggedIn = !!accessToken
+  const { userData } = useContext(SessionContext);
+  debugger
+  let isLoggedIn = Object.keys(userData).length > 0
   let userLink = isLoggedIn ? '/' : '/login'
-
   return (
     <div className='header'>
         <Place/>

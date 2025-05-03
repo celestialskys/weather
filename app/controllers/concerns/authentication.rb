@@ -26,7 +26,6 @@ module Authentication
     end
 
     def find_session_by_token
-      byebug
       token = request.headers['Authorization']&.split(' ')&.last
       session = Session.find_by(id: token)
     end

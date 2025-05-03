@@ -7,7 +7,7 @@ const SessionContext = createContext({
   savedLocations: {},
   isUserLoading: false,
   userError: false,
-  shouldRefreshLocations: {},
+  shouldRefreshLocations: false,
   setShouldRefreshLocations: () => {},
   setUserData: () => {},
   setAccessToken: () => {},
@@ -26,29 +26,6 @@ function SessionProvider({ children }){
     const [userError, setUserError] = useState(false);
     const [shouldRefreshLocations, setShouldRefreshLocations] = useState(false);
 
-    useEffect(() => {
-      const _getUserLocations = async () => {
-        try {
-          const savedUserLocations = await getUserLocations({ user_id: userData.id });
-          if (savedUserLocations) {
-            setSavedLocations(savedUserLocations);
-          }
-        } catch (error) {
-          console.error('Error fetching user locations:', error);
-        } finally {
-          setShouldRefreshLocations(false);
-        }
-      };
-      if (
-        userData?.id &&
-        accessToken &&
-        shouldRefreshLocations
-      ) {
-        setTimeout(() => {
-        _getUserLocations();}, 100)
-      }
-    }, [userData, accessToken, shouldRefreshLocations]);
-    
     return (
         <SessionContext.Provider
           value={{

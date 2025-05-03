@@ -48,7 +48,7 @@ const LoginSignup = () => {
           localStorage.setItem('user', JSON.stringify(res.user));
           navigate('/');
         } else {
-          window.location.reload();
+          // window.location.reload();
           setUserError(true);
         }
       } else {

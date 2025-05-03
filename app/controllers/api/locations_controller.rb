@@ -6,7 +6,6 @@ class Api::LocationsController < ApplicationController
   # before_action :set_location, only: %i[ show update destroy ]
 
   def index
-    byebug
     @locations = Current.user.locations
     render json: @locations
   end
