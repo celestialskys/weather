@@ -13,6 +13,7 @@ function PersistLogin() {
         if (loginRes.authenticated) {
           setUserData(loginRes.user);
           setAccessToken(loginRes.accessToken);
+          setShouldRefreshLocations(true);
           localStorage.setItem('authToken', loginRes.accessToken);
           localStorage.setItem('user', JSON.stringify(loginRes.user));
         } else {
