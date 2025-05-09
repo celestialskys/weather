@@ -3,7 +3,7 @@ class Api::LocationsController < ApplicationController
   before_action :require_authentication
 
   # allow_unauthenticated_access
-  # before_action :set_location, only: %i[ show update destroy ]
+  before_action :set_location, only: %i[ update destroy ]
 
   def index
     @locations = Current.user.locations
@@ -37,7 +37,11 @@ class Api::LocationsController < ApplicationController
 
   # DELETE /locations/1
   def destroy
-    @location.destroy!
+    if @location.destroy
+      render json: { locations: Current.user.locations, destroyed: true}
+    else
+      render json: @location.errors, destroyed: false
+    end
   end
 
   private

@@ -56,7 +56,7 @@ function Main(){
                 data={hourlyForcast}/>
               <Forecast
                 type='daily'
-                title='21 day forecast'
+                title='daily forecast'
                 data={weekForecast}/>
             </Grid>
           </React.Fragment>

@@ -15,39 +15,52 @@ function HourlyForecastWidget({data}) {
   } = data;
 
   let precipitation = rain || snow|| {'1h': 0}
-  const locale = navigator.language;
+  const locale = navigator.language || 'en-US';
+  const dateObj = new Date(dt_txt);
+  
+  // Format current time and day
+  const now = new Date();
   const now_date = {
     day: new Intl.DateTimeFormat(locale, {
       weekday: 'short',
       day: '2-digit',
       month: '2-digit',
-    }).format(new Date()),
+    }).format(now),
     time: new Intl.DateTimeFormat(locale, {
       hour: '2-digit',
       minute: '2-digit',
-    }).format(new Date().setMinutes(0)),
+    }).format(now),
   };
+  
+  // Format incoming weather date
   const weather_date = {
     day: new Intl.DateTimeFormat(locale, {
       weekday: 'short',
       day: '2-digit',
       month: '2-digit',
-    }).format(new Date(dt_txt)),
+    }).format(dateObj),
     time: new Intl.DateTimeFormat(locale, {
       hour: '2-digit',
       minute: '2-digit',
-    }).format(new Date(dt_txt).setMinutes(0)),
+    }).format(dateObj),
   };
+  
+  // Midnight time string (localized)
   const midnightTime = new Intl.DateTimeFormat(locale, {
     hour: '2-digit',
     minute: '2-digit',
   }).format(new Date().setHours(0, 0, 0, 0));
+  
 
-  weather_date.day =
-    weather_date.day === now_date.day &&
-    weather_date.time === now_date.time
-      ? 'Now'
-      : weather_date.time === midnightTime
+  const normalize = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const today = normalize(new Date());
+  const inputDay = normalize(dateObj);
+
+  const isSameDay = weather_date.day === now_date.day && weather_date.time === now_date.time;
+
+  weather_date.day = isSameDay
+    ? 'Now'
+    : weather_date.time === midnightTime
       ? weather_date.day
       : '';
   return (

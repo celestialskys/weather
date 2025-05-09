@@ -15,24 +15,20 @@ function DailyForecastWidget({data}) {
 
   let precipitation = rain || snow || 0
 
-  const now_date = {
-    day: new Intl.DateTimeFormat(navigator.language, {
-      weekday: 'short',
-      day: '2-digit',
-      month: '2-digit',
-    }).format(new Date())
-  };
+  const dateFromApi = new Date(dt * 1000); // dt = 1746270000
 
   const weather_date = {
     day: new Intl.DateTimeFormat(navigator.language, {
       weekday: 'short',
       day: '2-digit',
       month: '2-digit',
-    }).format(new Date(dt))
-  };
+    }).format(dateFromApi)
+  }
 
-  weather_date.day =
-  now_date.day === weather_date.day ? 'Today' : weather_date.day;
+  const today = new Date();
+  const isSameDay = dateFromApi.toDateString() === today.toDateString()
+
+  weather_date.day = isSameDay ? 'Today' : weather_date.day;
 
 return (
   <div className='widget'>
